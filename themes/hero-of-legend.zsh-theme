@@ -29,16 +29,16 @@ LIGHTNING="🌩"
 GEAR="⚙"
 SWORDS=$'⚔'
 TOOLBOX="🧰"
-SWORD=$'🗡'
+SWORD=$'🗡️'
 ADDKEY=$'🪄'
-KEY=$'🗝'
+KEY=$'🗝️'
 DOOR=$'🚪'
 DIR=$'\uf413🔺'
 DIF=$'🪞'
 SUN=$'☀'
 MOON=$'🌙'
-TIME=$'😶‍🌫'
-MERGE=$'🫙'
+TIME=$'‍⌚'
+MERGE=$'🏺'
 PUSH=$'🪃'  
 PULL=$'🎣'
 STAT=$'🍄'
@@ -83,14 +83,14 @@ if [ $(pwd) != "/" ]; then
   KEYS=$(pwd | awk -F"/" '{print NF-1}; ')
 fi
 
-alias trash-size="du --human-readable --summarize ~/.local/share/Trash"
+alias trash-size="du --human-readable --summarize -csh --block-size=1G ~/.local/share/Trash"
 TRASH_SIZE=(${$(trash-size)//G/ })
 TRASH_SIZE=$( printf "%.0f" $TRASH_SIZE[1] )
 
 DOWNLOAD_DIRS=$( ls -l ~/Downloads/ | wc -l )
 BOMBS="$TRASH_SIZE${BOMB}b"
 ARROWS="$DOWNLOAD_DIRS${BOW}a"
-KEYS="${KEYS}${KEY}k"
+KEYS="${KEYS}${KEY} k"
 SEARCH="${FIND}f"
 BELL="${HISTORY}h"
 CLEAR="${TRASH}CL"
@@ -105,10 +105,11 @@ $fg_bold[cyan]-LVL- $BRANCH $reset_color"
 ZSH_THEME_GIT_PROMPT_SUFFIX="$reset_color
 "
 
-CLOCK="-TIME- $SUN%D{%B}/%D{%d} $MOON %D{%A} $TIME%D{%I:%M:%S%P}"
+# CLOCK
+CLOCK="-TIME-  $SUN%D{%B}/%D{%d} $MOON %D{%A} $TIME%D{%I:%M:%S%P}"
 
 NAVI='🧚 "Hey, listen!"'
-RPROMPT='${SWORD}z $CLOCK $HUD ${CLOSE}'
+RPROMPT='${SWORD} z $CLOCK $HUD ${CLOSE}'
 PROMPT='$reset_color$DESK $fg[white]%m $NAVI $(git_prompt_info)
 $fg_bold[yellow] ▲  $reset_color$fg[cyan]$MAP %d 
 $fg_bold[yellow]▲ ▲ $reset_color$fg_bold[green]$DOOR %c $fg_bold[green]
@@ -118,8 +119,8 @@ $ $reset_color'
 
 # ZSH_THEME_GIT_PROMPT_DIRTY=" $reset_color$fg[red]-LIFE- ♥ ♡ ♡  "
 # ZSH_THEME_GIT_PROMPT_CLEAN=" $reset_color$fg[red]-LIFE- ♥ ♥ ♥ "
-ZSH_THEME_GIT_PROMPT_DIRTY=" $reset_color$fg_bold[red]-LIFE- ❤❤💔🖤🖤🖤🖤🖤🖤🖤  "
-ZSH_THEME_GIT_PROMPT_CLEAN=" $reset_color$fg_bold[red]-LIFE- ❤❤❤❤❤❤❤❤❤❤  "
+ZSH_THEME_GIT_PROMPT_DIRTY=" $reset_color$fg_bold[red]-LIFE- ️️💜💜💜🖤🖤🖤🖤🖤🖤🖤  "
+ZSH_THEME_GIT_PROMPT_CLEAN=" $reset_color$fg_bold[red]-LIFE- 💛💛💛💛💛💛💛💛💛💛  "
 
 #TMOUT=60
 
