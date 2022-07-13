@@ -11,11 +11,23 @@ echo "
             ╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝
                  --- Oh-my & The Hero-of-Legend --- 
                          
-                         press start ⚔z
+                         press start 👕️z
                                🎮
 "
 local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ %s)"
 # Characters
+
+QUOTES=(
+  "🧚 Hey, listen!"
+  "🧙‍♂️ Its dangerous to go alone. Take this!"
+  "🧚 Hey, Wake up $USER!"
+  "🧝‍♂️ Zsh, Its a secret to everybody."
+  "👺 Grumble, Grumble"
+  "🦸‍♂️ Well excuse me, princess"
+  "🕺 I am Error"
+  "🐲 Dodongo Dislikes Smoke"
+)
+
 SEGMENT_SEPARATOR="\ue0b0"
 PLUSMINUS="\u00b1"
 BRANCH="🚧"
@@ -83,6 +95,8 @@ if [ $(pwd) != "/" ]; then
   KEYS=$(pwd | awk -F"/" '{print NF-1}; ')
 fi
 
+NAVI=${QUOTES[ $RANDOM % ${#QUOTES[@]} ]}
+
 alias trash-size="du --human-readable --summarize -csh --block-size=1G ~/.local/share/Trash"
 TRASH_SIZE=(${$(trash-size)//G/ })
 TRASH_SIZE=$( printf "%.0f" $TRASH_SIZE[1] )
@@ -108,7 +122,6 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="$reset_color
 # CLOCK
 CLOCK="-TIME-  $SUN%D{%B}/%D{%d} $MOON %D{%A} $TIME%D{%I:%M:%S%P}"
 
-NAVI='🧚 "Hey, listen!"'
 RPROMPT='${SWORD} z $CLOCK $HUD ${CLOSE}'
 PROMPT='$reset_color$DESK $fg[white]%m $NAVI $(git_prompt_info)
 $fg_bold[yellow] ▲  $reset_color$fg[cyan]$MAP %d 
