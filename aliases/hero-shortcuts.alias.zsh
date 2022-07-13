@@ -43,14 +43,14 @@ alias hud="echo '
 | 🗡 z 🗝 k 🏹 a 💣 b 💥 x  | |  💎 💎   |
  ===========================  | 💎 💎 💎 |
 🤺 EQUIPMENT ===============  |  💎      |                                   
-| 🥾 ?  🥊 e   🤿 v  🔮 t   |  ===========
+| 🥾 ?  🥊 e   🤿 v  🪩 t   |  ===========
  ===========================   ❤Equipped=    
- 🎒 ITEMS ==================   | 💍 🎒 👕 |    
+ 🎒 ITEMS ==================   | 💍 🛡 👕 |    
 | 🔦 f 🖍 n 🎺 lt 📗 h 🔥 ! |  ===========
  ===========================
  🧰 GIT TOOLS ==============  
 | 🔨 A 🌱 B 📜 C ✨ CO 🪞 D | 
-| 🌀 I 🏺 M 🪃  P 🎣 p  🍄 S | 
+| 🌀 I 🫙 M 🪃 P 🎣 p  🍄 S | 
  =========================== 
 
 '"
@@ -110,7 +110,7 @@ alias \?="echo '🥾 Run commands super quick!
 🎱 t  - Magic 8 Ball: HTop
 
 💍 Pendant: Shows if hero-of-legend bin scripts are in use
-🎒 Sheild: Shows if hero-of-legend aliases are in use
+🛡 Sheild: Shows if hero-of-legend aliases are in use
 👕 Tunic: This Theme
 '"
 
