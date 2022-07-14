@@ -93,12 +93,12 @@ alias \?="echo '
 ╔ 💍 HUD ══════════════════════════════════════════════════════════════════════════════════
 ║ 🗡️ z  - Sword: Wipes the screen, shows your inventory, and awaits your next command. 
 ║ 🗝️ k  - Keys: # of child directorys; k[1-9] Uses # of keys to cd .. that many times.
-║ 💣 b  - Bombs: # of Gigs in Trash; b/bomb blows up the trash bin.  
+║ 💣 b  - Bombs: # of Gigs in Trash; b/bomb blows up the trash bin, b+ [FILE] moves file to trash, b- lists trash  
 ║ 🏹 a  - Arrows: # of files in ~/Downloads; a/arw is a direct shot to ~/Downloads  
 ║ 💥 x  - Quake: Close the terminal
 ╠ 🎒 ITEMS ════════════════════════════════════════════════════════════════════════════════
 ║ ⚡️ a+ - Light Arrows: Bookmark Direct Travel to any location at the speed of light 
-║ 🔥 a! - Fire Arrows: Burn through all your downloads - one at a time.
+║ 🔥 a! - Fire Arrows: Burn through all your downloads - one at a time. Uses rm -i.
 ║ 🔦 f  - Magic Lantern aka Flashlight: Search the castle for files that match
 ║ 🎺 lt - Magic Trumpet: Use LocalTunnel to open a pubically accessible portal to any local port.
 ║ 📗 h  - Magic Book of History: Search through the history of CLI command inputs 
