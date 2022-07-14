@@ -1,69 +1,121 @@
-echo "
-       _____ _          __                      _        ___ 
-      |_   _| |_ ___   |  |   ___ ___ ___ ___ _| |   ___|  _|
-        | | |   | -_|  |  |__| -_| . | -_|   | . |  | . |  _|
-        |_| |_|_|___|  |_____|___|_  |___|_|_|___|  |___|_|                                
-            ███████╗███████╗██╗  ██╗███████╗██╗     ██╗     
-            ╚══███╔╝██╔════╝██║  ██║██╔════╝██║     ██║     
-              ███╔╝ ███████╗███████║█████╗  ██║     ██║     
-             ███╔╝  ╚════██║██╔══██║██╔══╝  ██║     ██║     
-            ███████╗███████║██║  ██║███████╗███████╗███████╗
-            ╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝
-                 --- Oh-my & The Hero-of-Legend --- 
-                         
-                         press start 👕️z
-                               🎮
-"
+# Introduce Characters
+declare -A NPC=(
+ [wizard]=🧙
+ [fairy]=🧚️
+ [elf]=🧝
+ [dragon]=🐲
+ [hero]=🦸
+ [genie]=🧞‍♂️
+ [villian]=🧞
+)
 
-# Characters
-local SEGMENT_SEPARATOR="\ue0b0"
-local PLUSMINUS="\u00b1"
-local DETACHED="\u27a6"
-local BRANCH="🚧"
-local HAMMER="🔨"
+# INTRODUCE HERO OF LEGEND ICONS
+declare -A HERO=(
+ [bean]=🌱 
+ [bomb]=💣 
+ [book]=📗 
+ [boomerang]=🪃 
+ [bow]=🏹 
+ [branch]=🚧 
+ [cart]=🛒 
+ [castle]=🏰 
+ [compass]=🧭 
+ [controller]=🎮 
+ [door]=🚪 
+ [exit]=💥 
+ [flashlight]=🔦 
+ [hammer]=🔨 
+ [bottle]=🏺 
+ [key]=️️🗝️
+ [mirror]=🔍 
+ [moon]=🌙 
+ [mushroom]=🍄 
+ [poll]=🎣 
+ [scroll]=📜 
+ [powder]=✨ 
+ [sun]=🌞 
+ [sword]=️🗡️ 
+ [swords]=⚜️ 
+ [toolbox]=🧰 
+ [trash]=🗑 
+ [watch]=⌚ 
+)
+
+# MAP ICONS TO THE MAGIC BUTTONS
+declare -A MAGIC=(
+  [bow]="${HERO[bow]}a"
+  [bomb]="${HERO[bomb]}b"
+  [key]="${HERO[key]} k"
+  [bean]="${HERO[bean]}B"
+  [boomerang]="${HERO[boomerang]} P"
+  [bottle]="${HERO[bottle]}M"
+  [branch]="$fg_bold[cyan]-LVL- ${HERO[branch]}"
+  [exit]="${HERO[exit]}x"
+  [flow]="🌀I"
+  [hammer]="${HERO[hammer]}A"
+  [lantern]="${HERO[lantern]}f"
+  [mirror]="${HERO[mirror]}D"
+  [mushroom]="${HERO[mushroom]}S"
+  [poll]="${HERO[poll]}p"
+  [powder]="${HERO[powder]}CO"
+  [scroll]="${HERO[scroll]}C"
+  [sword]="${HERO[sword]} z"
+)
+
+local ADDKEY=$'🪄'
 local BOMB="💣"
 local BOW="🏹"
-local SEED="🌱"
-local CROSS="✝"
-local LIGHTNING="🌩"
-local GEAR="⚙"
-local SWORDS=$'⚔'
-local TOOLBOX="🧰"
-local SWORD=$'🗡️'
-local ADDKEY=$'🪄'
-local KEY=$'🗝️'
-local DOOR=$'🚪'
-local DIR=$'\uf413🔺'
-local DIF=$'🪞'
-local SUN=$'☀'
-local MOON=$'🌙'
-local TIME=$'‍⌚'
-local MERGE=$'🏺'
-local PUSH=$'🪃'  
-local PULL=$'🎣'
-local STAT=$'🍄'
-local OUT=$'\ufcdf'
-local LIFE=$'📜'
-local DESK=$'🖥'
-local EXIT=$'💥'
-local MAP=$'🏰'
-local COMPASS=$'🧭'
+local BRANCH="🚧"
 local CART=$'🛒'
-local SPARKLE=$'✨'
-local TRASH=$'🗑'
-local HISTORY=$'📗'
+local COMPASS=$'🧭'
+local CROSS="✝"
+local DESK=$'🎮'
+local DETACHED="\u27a6"
+local DIF=$'🪞'
+local DIR=$'\uf413🔺'
+local DOOR=$'🚪'
+local EXIT=$'💥'
 local FIND=$'🔦'
+local GEAR="⚙"
+local HAMMER="🔨"
+local HISTORY=$'📗'
+local KEY=$'🗝️'
+local LIFE=$'📜'
+local LIGHTNING="🌩"
+local MAP=$'🏰'
+local MERGE=$'🏺'
+local MOON=$'🌙'
+local OUT=$'\ufcdf'
+local PLUSMINUS="\u00b1"
+local PULL=$'🎣'
+local PUSH=$'🪃'  
+local SEED="🌱"
+local SEGMENT_SEPARATOR="\ue0b0"
+local SPARKLE=$'✨'
+local STAT=$'🍄'
+local SUN=$'☀'
+local SWORD=$'🗡️'
+local SWORDS=$'⚔'
+local TIME=$'‍⌚'
+local TOOLBOX="🧰"
+local TRASH=$'🗑'
 
 QUOTES=(
-  "🧚 Hey, listen!"
-  "🧙‍♂️ Its dangerous to go alone. Take this!"
-  "🧚 Hey, Wake up $USER!"
-  "🧝‍♂️ Zsh, Its a secret to everybody."
+  "${NPC[fairy]} Hey, listen!"
+  "${NPC[wizard]}️ Its dangerous to go alone. Take this!"
+  "${NPC[fairy]} Hey, Wake up $USER!"
+  "${NPC[elf]} Zshhhhh, Its a secret to everybody."
   "👺 Grumble, Grumble"
-  "🦸‍♂️ Well excuse me, princess!"
-  "🕺 I am Error"
-  "🐲 Dodongo Dislikes Smoke"
+  "${NPC[hero]}️ Well excuse me, princess!"
+  "${NPC[man]}️  I am Error"
+  "${NPC[dragon]}️ 🐲 Dodongo Dislikes Smoke"
 )
+
+# ITEM SHORTCUTS
+# SEARCH=$MAGIC[lantern]
+# BELL="${HISTORY}h"
+# CLEAR="${TRASH}CL"
+# CLOSE=$MAGIC[exit]
 
 local _prompt="$(echo -e "${NERDISH_SYMBOL_PROMPT:-"\uf105"}")"
 local _directory="$(echo -e "${NERDISH_SYMBOL_DIRECTORY:-"\uf0a0"}")"
@@ -77,49 +129,6 @@ _l="$fg[blue][$fg[white]"
 _rl="$reset_color$fg[blue]|$fg[white]"
 _r="$fg_bold[blue]$reset_color$fg[blue]]$reset_color"
 
-
-CASTLE="$reset_color$fg[cyan]$MAP %d"
-FLOOR="$reset_color$fg_bold[green]$DOOR %c"
-
-declare -A MAGIC 
-MAGIC[lantern]=""
-MAGIC[exit]="${EXIT}x"
-MAGIC[hammer]="${HAMMER}A"
-MAGIC[bean]="${SEED}B"
-MAGIC[scroll]="${LIFE}C"
-MAGIC[powder]="${SPARKLE}CO"
-MAGIC[mirror]="${DIF}D"
-MAGIC[flow]="🌀I"
-MAGIC[bottle]="${MERGE}M"
-MAGIC[boomerang]="${PUSH} P"
-MAGIC[poll]="${PULL}p"
-MAGIC[mushroom]="${STAT}S"
-MAGIC[branch]="$fg_bold[cyan]-LVL- $BRANCH"
-
-# ITEM SHORTCUTS
-SEARCH="${FIND}f"
-BELL="${HISTORY}h"
-CLEAR="${TRASH}CL"
-CLOSE=$MAGIC[exit]
-
-# GIT PROMPTS
-GIT_HUD=(
-  "\n"
-  $TOOLBOX 
-  $MAGIC[hammer]
-  $MAGIC[bean]
-  $MAGIC[scroll]
-  $MAGIC[powder]
-  $MAGIC[mirror]
-  $MAGIC[flow]
-  $MAGIC[bottle]
-  $MAGIC[bommerang]
-  $MAGIC[poll]
-  $MAGIC[mushroom]
-  "\n"
-  $MAGIC[branch]
-  "$reset_color$fg_bold[white]"
-)
 
 LIFE=(
   " $fg_bold[red]-LIFE- 💛💛💛💛💛💛💛💛💛💛  "
@@ -142,16 +151,11 @@ TRIFORCES=(
   LOWRULE
 )
 
-precmd () {
-  # HUDS
-  NAVI=${QUOTES[ $RANDOM % ${#QUOTES[@]} ]}
-  INFO=(
-    "$DESK $fg[white]%m"
-    $NAVI 
-  )
+CASTLE="$reset_color$fg[cyan]$MAP %d"
+FLOOR="$reset_color$fg_bold[green]$DOOR %c"
 
+precmd () {
   # BOMBS
-  alias trash-size="du --human-readable --summarize -csh --block-size=1G ~/.local/share/Trash"
   TRASH_SIZE=(${$(trash-size)//G/ })
   TRASH_SIZE=$( printf "%.0f" $TRASH_SIZE[1] )
 
@@ -166,45 +170,94 @@ precmd () {
   fi
 
   # ITEMS
-  ARROWS="$DOWNLOAD_DIRS${BOW}a"
-  BOMBS="$TRASH_SIZE${BOMB}b"
-  KEYS="${KEYS}${KEY} k"
+  KEYS="${KEYS}${MAGIC[key]} "
+  BOMBS="$TRASH_SIZE${MAGIC[bomb]} "
+  ARROWS="$DOWNLOAD_DIRS${MAGIC[bow]} "
 
   # CLOCK
   CLOCK=(
     -TIME-
-    $SUN%D{%B}/%D{%d}
-    $MOON %D{%A}
-    $TIME%D{%I:%M:%S%P}
+    $SUN%D{%b}/%D{%d}
+    $MOON %D{%a}
+    # $TIME%D{%I:%M:%S%P}
+    $TIME%D{%I:%M%P}
+  )
+
+  # HUDS
+  NAVI=${QUOTES[ $RANDOM % ${#QUOTES[@]} ]}
+
+  INFO=(
+    "$DESK $fg[white]%m"
+    "$CLOCK[@]"
   )
 
   HUD=(
-    $SWORD z
-    "$CLOCK[@]"
+    '$NAVI -'
     $KEYS 
-    $BOMBS 
     $ARROWS
-    $CLOSE
+    $BOMBS 
+    $MAGIC[sword]
+    $MAGIC[exit]
   )
 
   # GIT PROMPTS
+  GIT_HUD=(
+    "\n"
+    $TOOLBOX 
+    $MAGIC[hammer]
+    $MAGIC[bean]
+    $MAGIC[scroll]
+    $MAGIC[powder]
+    $MAGIC[mirror]
+    $MAGIC[flow]
+    $MAGIC[bottle]
+    $MAGIC[bommerang]
+    $MAGIC[poll]
+    $MAGIC[mushroom]
+    "\n"
+    $MAGIC[branch]
+    "$reset_color$fg_bold[white]"
+  )
+
   ZSH_THEME_GIT_PROMPT_PREFIX=$GIT_HUD[@]
   ZSH_THEME_GIT_PROMPT_CLEAN=$LIFE[1]
   ZSH_THEME_GIT_PROMPT_DIRTY=$LIFE[2]
   ZSH_THEME_GIT_PROMPT_SUFFIX=$reset_color
 
   # HERO OF LEGEND TERMINAL PROMPT
+  Z="$fg_bold[green]$ $reset_color"
   RPROMPT="$HUD[@]"
-
   PROMPT="$INFO[@] $(git_prompt_info)
-  $TRIFORCE[1] $CASTLE 
-  $TRIFORCE[2] $FLOOR
-  $ $reset_color"
+  $TRIFORCE[1] $FLOOR
+  $TRIFORCE[2] $CASTLE 
+  $Z"
 }
 
 # CLOCK COUNTER
-TMOUT=1
-
+# TODO: Fix tmux issue with reset-prompt removing lines after update when in
+TMOUT=20
 TRAPALRM() {
   zle reset-prompt
 }
+
+if [ $HEY_LISTEN ]; then
+  echo "${NPC[fairy]} $HEY_LISTEN"
+  export HEY_LISTEN=""
+else
+  echo "
+        _____ _          __                      _        ___ 
+        |_   _| |_ ___   |  |   ___ ___ ___ ___ _| |   ___|  _|
+          | | |   | -_|  |  |__| -_| . | -_|   | . |  | . |  _|
+          |_| |_|_|___|  |_____|___|_  |___|_|_|___|  |___|_|                                
+              ███████╗███████╗██╗  ██╗███████╗██╗     ██╗     
+              ╚══███╔╝██╔════╝██║  ██║██╔════╝██║     ██║     
+                ███╔╝ ███████╗███████║█████╗  ██║     ██║     
+               ███╔╝  ╚════██║██╔══██║██╔══╝  ██║     ██║     
+              ███████╗███████║██║  ██║███████╗███████╗███████╗
+              ╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝
+                  --- Oh-my & The Hero-of-Legend --- 
+                          
+                          press start 👕️z
+                                🎮
+  "
+fi
