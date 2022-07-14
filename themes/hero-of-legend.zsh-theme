@@ -5,6 +5,8 @@ declare -A NPC=(
  [elf]=🧝
  [dragon]=🐲
  [hero]=🦸
+ [king]=🤴
+ [queen]=👸
  [genie]=🧞‍♂️
  [villian]=🧞
 )
@@ -15,6 +17,7 @@ declare -A HERO=(
  [bomb]=💣 
  [book]=📗 
  [boomerang]=🪃 
+ [boots]=🥾
  [bow]=🏹 
  [branch]=🚧 
  [cart]=🛒 
@@ -22,6 +25,7 @@ declare -A HERO=(
  [compass]=🧭 
  [controller]=🎮 
  [door]=🚪 
+ [dungeon]=️💀
  [exit]=💥 
  [flashlight]=🔦 
  [hammer]=🔨 
@@ -60,6 +64,7 @@ declare -A MAGIC=(
   [powder]="${HERO[powder]}CO"
   [scroll]="${HERO[scroll]}C"
   [sword]="${HERO[sword]} z"
+  [boots]="${HERO[boots]} ?"
 )
 
 local ADDKEY=$'🪄'
@@ -106,9 +111,9 @@ QUOTES=(
   "${NPC[fairy]} Hey, Wake up $USER!"
   "${NPC[elf]} Zshhhhh, Its a secret to everybody."
   "👺 Grumble, Grumble"
-  "${NPC[hero]}️ Well excuse me, princess!"
-  "${NPC[man]}️  I am Error"
-  "${NPC[dragon]}️ 🐲 Dodongo Dislikes Smoke"
+  "${NPC[king]}️ Well excuse me, princess!"
+  # "${NPC[dragon]}️ Dodongo Dislikes Smoke"
+  # "${NPC[man]}️  I am Error"
 )
 
 # ITEM SHORTCUTS
@@ -131,8 +136,8 @@ _r="$fg_bold[blue]$reset_color$fg[blue]]$reset_color"
 
 
 LIFE=(
-  " $fg_bold[red]-LIFE- 💛💛💛💛💛💛💛💛💛💛  "
-  " $fg_bold[red]-LIFE- ️️💜💜💜🖤🖤🖤🖤🖤🖤🖤  "
+  " $fg_bold[red]-LIFE- ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥%{$reset_color%}"
+  " $fg_bold[red]-LIFE- ♥ ♥ \ufbdc ♡ ♡ ♡ ♡ ♡ ♡ ♡%{$reset_color%}"
 )
 
 # THE TRIFORCE
@@ -170,9 +175,7 @@ precmd () {
   fi
 
   # ITEMS
-  KEYS="${KEYS}${MAGIC[key]} "
-  BOMBS="$TRASH_SIZE${MAGIC[bomb]} "
-  ARROWS="$DOWNLOAD_DIRS${MAGIC[bow]} "
+  # KEYS="${KEYS}${MAGIC[key]} "
 
   # CLOCK
   CLOCK=(
@@ -187,23 +190,43 @@ precmd () {
   NAVI=${QUOTES[ $RANDOM % ${#QUOTES[@]} ]}
 
   INFO=(
-    "$DESK $fg[white]%m"
+    "$DESK %{$fg[white]%}%m"
     "$CLOCK[@]"
   )
 
+  doubleDigits(){
+    NUM=$1
+    if [ $NUM -gt 99 ] ; then
+      NUM=99 
+    fi
+    return $NUM
+  }
+
+  doubleDigits $DOWNLOAD_DIRS
+  ARROWS=$(printf '%02d' $?)
+  doubleDigits $TRASH_SIZE
+  BOMBS=$(printf '%02d' $?)
+  doubleDigits $KEYS
+  KEYS=$(printf '%02d' $?)
+
   HUD=(
-    '$NAVI -'
-    $KEYS 
-    $ARROWS
-    $BOMBS 
+    $MAGIC[bow]
+    $MAGIC[bomb]
+    $MAGIC[key]
     $MAGIC[sword]
-    $MAGIC[exit]
+    $MAGIC[boots]
+    # $MAGIC[exit]
+  )
+
+  zHUD=(
+    "ˣ$ARROWS"
+    "ˣ$BOMBS"
+    "ˣ$KEYS"
   )
 
   # GIT PROMPTS
   GIT_HUD=(
-    "\n"
-    $TOOLBOX 
+    $HERO[dungeon]
     $MAGIC[hammer]
     $MAGIC[bean]
     $MAGIC[scroll]
@@ -214,23 +237,32 @@ precmd () {
     $MAGIC[bommerang]
     $MAGIC[poll]
     $MAGIC[mushroom]
-    "\n"
-    $MAGIC[branch]
-    "$reset_color$fg_bold[white]"
   )
 
+  if [ "$(git_prompt_info)" ]; then
+    ZSH_THEME_GIT_PROMPT_SUFFIX="\n${HUD[@]} ${GIT_HUD[@]}"
+    ITEM_HUD=$(git_prompt_info) 
+  else
+    ITEM_HUD=%{$reset_color%}${HUD[@]}
+  fi
+
   ZSH_THEME_GIT_PROMPT_PREFIX=$GIT_HUD[@]
+  ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}$MAGIC[branch] %{$fg_bold[white]%} "
   ZSH_THEME_GIT_PROMPT_CLEAN=$LIFE[1]
   ZSH_THEME_GIT_PROMPT_DIRTY=$LIFE[2]
-  ZSH_THEME_GIT_PROMPT_SUFFIX=$reset_color
+  # ZSH_THEME_GIT_PROMPT_SUFFIX=$reset_color
+  ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 
+  # ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[red]%}‹"
   # HERO OF LEGEND TERMINAL PROMPT
-  Z="$fg_bold[green]$ $reset_color"
-  RPROMPT="$HUD[@]"
-  PROMPT="$INFO[@] $(git_prompt_info)
-  $TRIFORCE[1] $FLOOR
-  $TRIFORCE[2] $CASTLE 
-  $Z"
+  Z="%{$fg_bold[green]%}Ƶ %{$reset_color%}"
+  # COLUMNS=$((COLUMNS + 1))
+  RPROMPT="${INFO[@]}"
+  PROMPT="$NAVI 
+ $TRIFORCE[1] $FLOOR
+ $TRIFORCE[2] $CASTLE 
+$ITEM_HUD 
+${zHUD[@]} $Z"
 }
 
 # CLOCK COUNTER
@@ -244,20 +276,20 @@ if [ $HEY_LISTEN ]; then
   echo "${NPC[fairy]} $HEY_LISTEN"
   export HEY_LISTEN=""
 else
-  echo "
-        _____ _          __                      _        ___ 
-        |_   _| |_ ___   |  |   ___ ___ ___ ___ _| |   ___|  _|
-          | | |   | -_|  |  |__| -_| . | -_|   | . |  | . |  _|
-          |_| |_|_|___|  |_____|___|_  |___|_|_|___|  |___|_|                                
-              ███████╗███████╗██╗  ██╗███████╗██╗     ██╗     
-              ╚══███╔╝██╔════╝██║  ██║██╔════╝██║     ██║     
-                ███╔╝ ███████╗███████║█████╗  ██║     ██║     
-               ███╔╝  ╚════██║██╔══██║██╔══╝  ██║     ██║     
-              ███████╗███████║██║  ██║███████╗███████╗███████╗
-              ╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝
-                  --- Oh-my & The Hero-of-Legend --- 
+  # echo "
+  #       _____ _          __                      _        ___ 
+  #       |_   _| |_ ___   |  |   ___ ___ ___ ___ _| |   ___|  _|
+  #         | | |   | -_|  |  |__| -_| . | -_|   | . |  | . |  _|
+  #         |_| |_|_|___|  |_____|___|_  |___|_|_|___|  |___|_|                                
+  #             ███████╗███████╗██╗  ██╗███████╗██╗     ██╗     
+  #             ╚══███╔╝██╔════╝██║  ██║██╔════╝██║     ██║     
+  #               ███╔╝ ███████╗███████║█████╗  ██║     ██║     
+  #              ███╔╝  ╚════██║██╔══██║██╔══╝  ██║     ██║     
+  #             ███████╗███████║██║  ██║███████╗███████╗███████╗
+  #             ╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝
+  #                 --- Oh-my & The Hero-of-Legend --- 
                           
-                          press start 👕️z
-                                🎮
-  "
+  #                         press start 👕️z
+  #                               🎮
+  # "
 fi
