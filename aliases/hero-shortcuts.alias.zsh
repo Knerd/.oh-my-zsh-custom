@@ -29,7 +29,7 @@ alias h='history | grep '
 alias H='h'
 
 # "Keys"
-alias k="cd ../;"
+alias k="echo '🗝 $USER uses a key';  echo '🚪 The door above opens...'; cd ..; pwd;"
 alias k2="k k"
 alias k3="k2 k"
 alias k4="k3 k"
@@ -56,25 +56,28 @@ declare -A BAR=(
 
 alias hud="echo ' 
 ╔💍 HUD ════════════════════╗  ╔Crystals══╗
-║ 🗡 z 🗝 k 🏹 a 💣 b 💥 x    ║  ║   💎 💎  ║  
+║ 🗡 z 🗝 k 🏹 a 💣 b 💥 x  ║  ║   💎 💎  ║  
 ╠═══════════════════════════╣  ║ 💎 💎 💎 ║
 ║ 🎒 ITEMS                  ║  ║   💎 💎  ║     
-║ 🔦 f 🖍 n 🎺 lt 📗 h 🔥 !  ║  ╚══════════╝
+║ 🔦 f 🖍 n 🎺 lt 📗 h 🔥 ! ║  ╚══════════╝
 ╠═══════════════════════════╣
 ║ 🧰 GIT TOOLS              ║ 
-║ 🔨 A 🌱 B 📜 C ✨ CO 🪞 D  ║
-║ 🌀 I 🍯 M 🪃 P 🎣 p  🍄 S  ║ 
+║ 🔨 A 🌱 B 📜 C ✨ CO 🪞 D ║
+║ 🌀 I 🍯 M 🪃 P 🎣 p  🍄 S ║ 
 ╠═══════════════════════════╣  
 ║ EQUIPMENT                 ║  ╔EQUIPPED══╗    
 ║ 🥾 ?  🥊 e   🤿 v  🔮 t   ║  ║ 💍 🛡️  👕 ║   
 ╚═══════════════════════════╝  ╚══════════╝
 '"
+
 alias i="CL; hud"
 alias z=i
 
 # ITEMS
-alias bomb="echo 💣 Bomb the Trash!; ls -l ~/.local/share/Trash/*; rm -rfi ~/.local/share/Trash/*;"
+alias bomb="hero-magic-bomb"
 alias b=bomb
+alias b+="bomb file"
+alias b-="bomb i"
 alias arw="~/Downloads; ls -l; echo '🏹 ---> Nice shot! Straight to Downloads. 🎯'"
 alias a=arw
 
