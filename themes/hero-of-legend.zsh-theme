@@ -159,6 +159,21 @@ TRIFORCES=(
 CASTLE="$reset_color$fg[cyan]$MAP %d"
 FLOOR="$reset_color$fg_bold[green]$DOOR %c"
 
+# CLOCK
+CLOCK=(
+  -TIME-
+  $SUN%D{%b}/%D{%d}
+  $MOON %D{%a}
+  $TIME%D{%I:%M:%S%P}
+  # $TIME%D{%I:%M%P}
+)
+
+# CLOCK COUNTER
+TMOUT=1
+TRAPALRM() {
+  zle reset-prompt
+}
+
 precmd () {
   # BOMBS
   TRASH_SIZE=(${$(trash-size)//G/ })
@@ -176,15 +191,6 @@ precmd () {
 
   # ITEMS
   # KEYS="${KEYS}${MAGIC[key]} "
-
-  # CLOCK
-  CLOCK=(
-    -TIME-
-    $SUN%D{%b}/%D{%d}
-    $MOON %D{%a}
-    # $TIME%D{%I:%M:%S%P}
-    $TIME%D{%I:%M%P}
-  )
 
   # HUDS
   NAVI=${QUOTES[ $RANDOM % ${#QUOTES[@]} ]}
@@ -234,7 +240,7 @@ precmd () {
     $MAGIC[mirror]
     $MAGIC[flow]
     $MAGIC[bottle]
-    $MAGIC[bommerang]
+    $MAGIC[boomerang]
     $MAGIC[poll]
     $MAGIC[mushroom]
   )
@@ -247,7 +253,7 @@ precmd () {
   fi
 
   ZSH_THEME_GIT_PROMPT_PREFIX=$GIT_HUD[@]
-  ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}$MAGIC[branch] %{$fg_bold[white]%} "
+  ZSH_THEME_GIT_PROMPT_PREFIX="${MAGIC[branch]} ${fg_bold[white]} "
   ZSH_THEME_GIT_PROMPT_CLEAN=$LIFE[1]
   ZSH_THEME_GIT_PROMPT_DIRTY=$LIFE[2]
   # ZSH_THEME_GIT_PROMPT_SUFFIX=$reset_color
@@ -265,31 +271,24 @@ $ITEM_HUD
 ${zHUD[@]} $Z"
 }
 
-# CLOCK COUNTER
-# TODO: Fix tmux issue with reset-prompt removing lines after update when in
-TMOUT=20
-TRAPALRM() {
-  zle reset-prompt
-}
-
 if [ $HEY_LISTEN ]; then
   echo "${NPC[fairy]} $HEY_LISTEN"
   export HEY_LISTEN=""
 else
-  # echo "
-  #       _____ _          __                      _        ___ 
-  #       |_   _| |_ ___   |  |   ___ ___ ___ ___ _| |   ___|  _|
-  #         | | |   | -_|  |  |__| -_| . | -_|   | . |  | . |  _|
-  #         |_| |_|_|___|  |_____|___|_  |___|_|_|___|  |___|_|                                
-  #             ███████╗███████╗██╗  ██╗███████╗██╗     ██╗     
-  #             ╚══███╔╝██╔════╝██║  ██║██╔════╝██║     ██║     
-  #               ███╔╝ ███████╗███████║█████╗  ██║     ██║     
-  #              ███╔╝  ╚════██║██╔══██║██╔══╝  ██║     ██║     
-  #             ███████╗███████║██║  ██║███████╗███████╗███████╗
-  #             ╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝
-  #                 --- Oh-my & The Hero-of-Legend --- 
+  echo "
+        _____ _          __                      _        ___ 
+        |_   _| |_ ___   |  |   ___ ___ ___ ___ _| |   ___|  _|
+          | | |   | -_|  |  |__| -_| . | -_|   | . |  | . |  _|
+          |_| |_|_|___|  |_____|___|_  |___|_|_|___|  |___|_|                                
+              ███████╗███████╗██╗  ██╗███████╗██╗     ██╗     
+              ╚══███╔╝██╔════╝██║  ██║██╔════╝██║     ██║     
+                ███╔╝ ███████╗███████║█████╗  ██║     ██║     
+               ███╔╝  ╚════██║██╔══██║██╔══╝  ██║     ██║     
+              ███████╗███████║██║  ██║███████╗███████╗███████╗
+              ╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝
+                  --- Oh-my & The Hero-of-Legend --- 
                           
-  #                         press start 👕️z
-  #                               🎮
-  # "
+                          press start 👕️z
+                                🎮
+  "
 fi
