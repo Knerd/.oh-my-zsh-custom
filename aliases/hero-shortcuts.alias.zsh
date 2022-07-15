@@ -54,6 +54,7 @@ declare -A BAR=(
  [H]="═"
 )
 
+alias i="((HERO_HIDE_ITEMS=!HERO_HIDE_ITEMS))"
 alias hud="echo ' 
 ╔💍 HUD ════════════════════╗  ╔Crystals══╗
 ║ 🗡 z 🗝 k 🏹 a 💣 b 💥 x  ║  ║   💎 💎  ║  
@@ -70,8 +71,7 @@ alias hud="echo '
 ╚═══════════════════════════╝  ╚══════════╝
 '"
 
-alias i="CL; hud"
-alias z=i
+alias z="CL; hud"
 
 # ITEMS
 alias bomb="hero-magic-bomb"
