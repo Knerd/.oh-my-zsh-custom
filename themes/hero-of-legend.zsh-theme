@@ -100,11 +100,6 @@ declare -A LIFE=(
   [dirty]=" $fg_bold[red]-LIFE- ♥ ♥ \ufbdc ♡ ♡ ♡ ♡ ♡ ♡ ♡%{$reset_color%}"
 )
 
-INFO=(
-  "${AREA[controller]} %{$fg[white]%}%m"
-  "$CLOCK[@]"
-)
-
 HUD=(
   $MAGIC[bow]
   $MAGIC[bomb]
@@ -160,6 +155,11 @@ CLOCK=(
 
 # CLOCK COUNTER
 TMOUT=1
+
+INFO=(
+  "${AREA[controller]} %{$fg[white]%}%m"
+  "$CLOCK[@]"
+)
 
 << ///////////////////////////////////////////////////////////////////
   METHODS/FUNCTIONS 
