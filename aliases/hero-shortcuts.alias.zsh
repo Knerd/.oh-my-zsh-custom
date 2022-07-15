@@ -54,13 +54,13 @@ declare -A BAR=(
  [H]="═"
 )
 
-alias i="((HERO_HIDE_ITEMS=!HERO_HIDE_ITEMS))"
+alias i="((HERO_HIDE_ITEMS=!HERO_HIDE_ITEMS)); CL"
 alias hud="echo ' 
 ╔💍 HUD ════════════════════╗  ╔Crystals══╗
 ║ 🗡 z 🗝 k 🏹 a 💣 b 💥 x  ║  ║   💎 💎  ║  
 ╠═══════════════════════════╣  ║ 💎 💎 💎 ║
-║ 🎒 ITEMS                  ║  ║   💎 💎  ║     
-║ 🔦 f 🖍 n 🎺 lt 📗 h 🔥 ! ║  ╚══════════╝
+║ 🎒 ITEMS  ⚡a+ 💣 b?      ║  ║   💎 💎  ║     
+║ 🔦 f 📗 h 🔥a! 🎺 lt 🖍 n ║  ╚══════════╝
 ╠═══════════════════════════╣
 ║ 🧰 GIT TOOLS              ║ 
 ║ 🔨 A 🌱 B 📜 C ✨ CO 🪞 D ║
@@ -70,7 +70,6 @@ alias hud="echo '
 ║ 🥾 ?  🥊 e   🤿 v  🔮 t   ║  ║ 💍 🛡️  👕 ║   
 ╚═══════════════════════════╝  ╚══════════╝
 '"
-
 alias z="CL; hud"
 
 # ITEMS
