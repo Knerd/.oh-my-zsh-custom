@@ -78,6 +78,7 @@ alias bomb="hero-magic-bomb"
 alias b=bomb
 alias b+="bomb file"
 alias b-="bomb i"
+alias b\?="bomb --help"
 alias arw="~/Downloads; ls -l; echo '🏹 ---> Nice shot! Straight to Downloads. 🎯'"
 alias a=arw
 
