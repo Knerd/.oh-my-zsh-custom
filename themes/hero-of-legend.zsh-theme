@@ -155,7 +155,8 @@
 
   # CLOCK
   CLOCK=(
-    "%{$fg[yellow]%}-TIME-"
+    "%{$fg[yellow]%}"
+    # "-TIME-"
     "${AREA[sun]}%D{%b}/%{$fg[cyan]%}%D{%d}"
     "${AREA[moon]}%D{%a}%{$reset_color%}"
     "${HERO[watch]}%D{%I:%M:%S%P}"
@@ -169,119 +170,134 @@
 : '////////////////////////////////////////////////////////////////////////
                           METHODS/FUNCTIONS 
 //////////////////////////////////////////////////////////////////////////'
-  TRAPALRM() {
-    zle reset-prompt
-  }
+TRAPALRM() {
+  zle reset-prompt
+}
 
-  doubleDigits(){
-    NUM=$1
-    if [ $NUM -gt 99 ] ; then
-      NUM=99 
-    fi
-    return $NUM
-  }
+doubleDigits(){
+  NUM=$1
+  if [ $NUM -gt 99 ] ; then
+    NUM=99 
+  fi
+  return $NUM
+}
 
-  countItems(){
-    # ARROWS 
-    DOWNLOAD_DIRS=$( ls -l ~/Downloads/ | wc -l )
+countItems(){
+  # ARROWS 
+  DOWNLOAD_DIRS=$( ls -l ~/Downloads/ | wc -l )
 
-    # BOMBS
-    TRASH_SIZE=(${$(trash-size)//G/ })
-    TRASH_SIZE=$( printf "%.0f" $TRASH_SIZE[1] )
+  # BOMBS
+  TRASH_SIZE=(${$(trash-size)//G/ })
+  TRASH_SIZE=$( printf "%.0f" $TRASH_SIZE[1] )
 
-    # KEYS
-    KEYS=0
-    if [ $(pwd) != "/" ]; then 
-      # COUNT HOW MANY DIRECTORIES DEEP WE ARE
-      KEYS=$(pwd | awk -F"/" '{print NF-1}; ')
-    fi
+  # KEYS
+  KEYS=0
+  if [ $(pwd) != "/" ]; then 
+    # COUNT HOW MANY DIRECTORIES DEEP WE ARE
+    KEYS=$(pwd | awk -F"/" '{print NF-1}; ')
+  fi
 
-    # ITEMS
-    doubleDigits $DOWNLOAD_DIRS
-    ARROWS=$(printf '%02d' $?)
+  # ITEMS
+  doubleDigits $DOWNLOAD_DIRS
+  ARROWS=$(printf '%02d' $?)
 
-    doubleDigits $TRASH_SIZE
-    BOMBS=$(printf '%02d' $?)
+  doubleDigits $TRASH_SIZE
+  BOMBS=$(printf '%02d' $?)
 
-    doubleDigits $KEYS
-    KEYS=$(printf '%02d' $?)
+  doubleDigits $KEYS
+  KEYS=$(printf '%02d' $?)
 
-    zHUD=(
-      "ˣ$ARROWS"
-      "ˣ$BOMBS"
-      "ˣ$KEYS"
-      ""
-    )
-  }
+  zHUD=(
+    "ˣ$ARROWS"
+    "ˣ$BOMBS"
+    "ˣ$KEYS"
+    ""
+  )
+}
 
-  # TODO: Refactor this...
-  displayHUD(){
-    ITEM_HUD=""
-    if [ "$(git_prompt_info)" ]; then
-      if [ "$HERO_HIDE_ITEMS" = "1" ]; then
-        ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
-        zHUD=()
-      else
-        ZSH_THEME_GIT_PROMPT_SUFFIX="\n%{$HUD[@]%} %{$GIT_HUD[@]%}"
-      fi
-      ITEM_HUD="$(git_prompt_info)" 
+# TODO: Refactor this...
+displayHUD(){
+  ITEM_HUD=""
+  if [ "$(git_prompt_info)" ]; then
+    if [ "$HERO_HIDE_ITEMS" = "1" ]; then
+      ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
+      zHUD=()
     else
-      if [ "$HERO_HIDE_ITEMS" = "1" ]; then
-        ITEM_HUD=""
-        zHUD=()
-      else
-        ITEM_HUD=$(echo -e "\n%{$reset_color%}%{$HUD[@]%}")
-      fi
+      ZSH_THEME_GIT_PROMPT_SUFFIX="\n%{$HUD[@]%} %{$GIT_HUD[@]%}"
     fi
-  }
+    ITEM_HUD="$(git_prompt_info)" 
+  else
+    if [ "$HERO_HIDE_ITEMS" = "1" ]; then
+      ITEM_HUD=""
+      zHUD=()
+    else
+      ITEM_HUD=$(echo -e "\n%{$reset_color%}%{$HUD[@]%}")
+    fi
+  fi
+}
 
-  # HERO OF LEGEND TERMINAL PROMPT
-  setupLegendaryPrompt(){
+# HERO OF LEGEND TERMINAL PROMPT
+setupLegendaryPrompt(){
+  if [ $HEY_LISTEN ]; then
+    if [ $HOL_NPC ]; then
+      NAVI="${NPC[$HOL_NPC]}: \"${HEY_LISTEN}\""
+    else
+      NAVI="${NPC[fairy]}: \"Hey, listen! ${HEY_LISTEN}\""
+    fi
+
+    HEY_LISTEN=""
+    HOL_NPC=""
+  else
     NAVI=${QUOTES[ $RANDOM % ${#QUOTES[@]} ]}
-    FLOOR="${AREA[door]} %{$reset_color%}%{$fg_bold[green]%}%c"
-    CASTLE="${AREA[castle]} %{$reset_color%}%{$fg[cyan]%}%d"
-    Z="%{$fg_bold[green]%}Ƶ %{$reset_color%}"
-  }
+  fi
+  FLOOR="${AREA[door]} %{$reset_color%}%{$fg_bold[green]%}%c"
+  CASTLE="${AREA[castle]} %{$reset_color%}%{$fg[cyan]%}%d"
+  Z="%{$fg_bold[green]%}Ƶ %{$reset_color%}"
+}
 
-  precmd () {
-    countItems
-    displayHUD
-    setupLegendaryPrompt
+precmd () {
+  countItems
+  displayHUD
+  setupLegendaryPrompt
 
-    PROMPT="$NAVI 
+  PROMPT="$NAVI 
 $TRIFORCE[1] $FLOOR
 $TRIFORCE[2] $CASTLE $ITEM_HUD 
 ${zHUD[@]}$Z"
-    RPROMPT="${INFO[@]}"
-    # END: precmd
-  }
+  RPROMPT="${INFO[@]}"
+  # END: precmd
+}
 
+
+showSplash(){
+<< SPLASH 
+        ()   ╔╦╗╦ ╦╔═╗  ╦  ╔═╗╔═╗╔═╗╔╗╔╔╦╗  ╔═╗╔═╗
+        )(    ║ ╠═╣║╣   ║  ║╣ ║ ╦║╣ ║║║ ║║  ║ ║╠╣ 
+      o=️👁️ =o  ╩ ╩ ╩╚═╝  ╩═╝╚═╝╚═╝╚═╝╝╚╝═╩╝  ╚═╝╚  
+      ██||███╗███████╗██╗  ██╗███████╗██╗     ██╗     
+      ╚═|███╔╝██╔════╝██║  ██║██╔════╝██║     ██║     
+        ███╔╝ ███████╗███████║█████╗  ██║     ██║     
+       ██|╔╝  ╚════██║██╔══██║██╔══╝  ██║     ██║     
+      ██||███╗███████║██║  ██║███████╗███████╗███████╗
+      ╚═||═══╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝
+        \/              Oh-my & The Hero-of-Legend 👕
+                  press start ️(z) 
+SPLASH
+}
+
+heyListen(){
+  echo "${NPC[fairy]} $HEY_LISTEN"
+  export HEY_LISTEN=""
+}
 : '////////////////////////////////////////////////////////////////////////
                               EXECUTE
 //////////////////////////////////////////////////////////////////////////'
-
-  # Used HEY_LISTEN to skip splash and have Navi say something instead
-  if [ $HEY_LISTEN ]; then
-    echo "${NPC[fairy]} $HEY_LISTEN"
-    export HEY_LISTEN=""
-  else
-    echo "
-          _____ _          __                      _        ___ 
-          |_   _| |_ ___   |  |   ___ ___ ___ ___ _| |   ___|  _|
-            | | |   | -_|  |  |__| -_| . | -_|   | . |  | . |  _|
-            |_| |_|_|___|  |_____|___|_  |___|_|_|___|  |___|_|                                
-                ███████╗███████╗██╗  ██╗███████╗██╗     ██╗     
-                ╚══███╔╝██╔════╝██║  ██║██╔════╝██║     ██║     
-                  ███╔╝ ███████╗███████║█████╗  ██║     ██║     
-                ███╔╝  ╚════██║██╔══██║██╔══╝  ██║     ██║     
-                ███████╗███████║██║  ██║███████╗███████╗███████╗
-                ╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝
-                    --- Oh-my & The Hero-of-Legend --- 
-                            
-                            press start 👕️z
-                                  🎮
-    "
-  fi
+if [ $HEY_LISTEN ]; then
+  # When using $ zsh - skip the splash by setting HEY_LISTEN. Navi will echo that instead 
+  heyListen
+else
+  showSplash
+fi
 
   # ITEM SHORTCUTS
   # SEARCH=$MAGIC[lantern]
