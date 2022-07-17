@@ -44,28 +44,29 @@ alias k9="k 9"
 
 # Heads Up Display
 : '
- ╔═╗
- ╠═╣
- ╚═╝
+ ┌─┐
+ ├─┤
+ └─┘
 '
 
 alias i="((HERO_HIDE_ITEMS=!HERO_HIDE_ITEMS)); CL"
 alias hud="echo ' 
-╔💍 HUD ════════════════════╗  ╔Crystals══╗
-║ 🗡 z 🗝 k 🏹 a 💣 b 💥 x    ║  ║   💎 💎  ║  
-╠═══════════════════════════╣  ║ 💎 💎 💎 ║
-║ 🎒 ITEMS  ⚡a+ 💣 b?      ║  ║   💎 💎  ║     
-║ 🔦 f 📗 h 🔥a! 🎺 lt 🖍 n  ║  ╚══════════╝
-╠═══════════════════════════╣
-║ 🧰 GIT TOOLS              ║ 
-║ 🔨 A 🌱 B 📜 C ✨ CO 🪞 D  ║
-║ 🌀 I 🍯 M 🪃 P 🎣 p  🍄 S  ║ 
-╠═══════════════════════════╣  
-║ EQUIPMENT                 ║  ╔EQUIPPED══╗    
-║ 🥾 ?  🥊 e   🤿 v  🔮 t   ║  ║ 💍 🛡️  👕 ║   
-╚═══════════════════════════╝  ╚══════════╝
+┌💍 HUD ────────────────────┐  ┌Crystals──┐
+│ 🗡 z 🗝 k 🏹 a 💣 b 💥 x  │  │   💎 💎  │  
+├───────────────────────────┤  │ 💎 💎 💎 │
+│ 🎒 ITEMS  ⚡a+ 💣 b?      │  │   💎 💎  │     
+│ 🔦 f 📗 h 🔥a! 🎺 lt 🖍 n │  └──────────┘
+├───────────────────────────┤
+│ 🧰 GIT TOOLS              │ 
+│ 🔨 A 🌱 B 📜 C ✨ CO 🪞 D │
+│ 🌀 I 🍯 M 🪃 P 🎣 p  🍄 S │ 
+├───────────────────────────┤  
+│ EQUIPMENT                 │  ┌EQUIPPED──┐    
+│ 🥾 ?  🥊 e   🤿 v  🔮 t   │  │ 💍 🛡️  👕 │   
+└───────────────────────────┘  └──────────┘
 '"
 alias z="CL; hud"
+alias z+='bash -c "$(curl -fsSL https://raw.githubusercontent.com/Knerd/hero-bin/develop/hero-magic-chest)"'
 
 # ITEMS
 alias bomb="hero-magic-bomb"
@@ -137,75 +138,75 @@ alias \?a!="echo '️${HERO_HELP[a!]}'"
 alias \?lt="echo '${HERO_HELP[lt]}'"
 
 alias \?="echo '
-╔ 💍 HUD ══════════════════════════════════════════════════════════════════════════════════
-║ ${HERO_HELP[z]}
-║ ${HERO_HELP[k]}
-║ ${HERO_HELP[b]}
-║ ${HERO_HELP[a]}
-║ ${HERO_HELP[x]}
-╠ 🎒 ITEMS ════════════════════════════════════════════════════════════════════════════════
-║ ${HERO_HELP[a+]}
-║ ${HERO_HELP[a!]}
-║ ${HERO_HELP[f]}
-║ ${HERO_HELP[h]}
-║ ${HERO_HELP[n]}
-╠ 🧰 GIT TOOLS aka GITCUTS ════════════════════════════════════════════════════════════════
-║ ${HERO_HELP[A]}
-║ ${HERO_HELP[B]}
-║ ${HERO_HELP[C]}
-║ ${HERO_HELP[D]}
-║ ${HERO_HELP[I]}
-║ ${HERO_HELP[M]}
-║ ${HERO_HELP[P]}
-║ ${HERO_HELP[p]}
-║ ${HERO_HELP[S]}
-╠ 🤺 EQUIPMENT ============================================================================
-║ 🥾 ?  - Pegus Boots: Run this Help menu, become uber-micro-fast by honing in on your CLI skills. 
-║ ${HERO_HELP[G]}
-║ ${HERO_HELP[v]}
-║ ${HERO_HELP[t]}
-╠ EQUIPED ============================================================================
-║ 💍 Pendant: Shows if hero-of-legend bin scripts are in use
-║ 🛡️  Sheild: Shows if hero-of-legend aliases are in use
-║ 👕 Tunic: This Theme
-╚═════════════════════════════════════════════════════════════════════════════════════════
+┌ 💍 HUD ──────────────────────────────────────────────────────────────────────────────────
+│ ${HERO_HELP[z]}
+│ ${HERO_HELP[k]}
+│ ${HERO_HELP[b]}
+│ ${HERO_HELP[a]}
+│ ${HERO_HELP[x]}
+├ 🎒 ITEMS ────────────────────────────────────────────────────────────────────────────────
+│ ${HERO_HELP[a+]}
+│ ${HERO_HELP[a!]}
+│ ${HERO_HELP[f]}
+│ ${HERO_HELP[h]}
+│ ${HERO_HELP[n]}
+├ 🧰 GIT TOOLS aka GITCUTS ────────────────────────────────────────────────────────────────
+│ ${HERO_HELP[A]}
+│ ${HERO_HELP[B]}
+│ ${HERO_HELP[C]}
+│ ${HERO_HELP[D]}
+│ ${HERO_HELP[I]}
+│ ${HERO_HELP[M]}
+│ ${HERO_HELP[P]}
+│ ${HERO_HELP[p]}
+│ ${HERO_HELP[S]}
+├ 🤺 EQUIPMENT ──────────────────────────────────────────────────────────────────────────────────
+│ 🥾 ?  - Pegus Boots: Run this Help menu, become uber-micro-fast by honing in on your CLI skills. 
+│ ${HERO_HELP[G]}
+│ ${HERO_HELP[v]}
+│ ${HERO_HELP[t]}
+├ EQUIPED ──────────────────────────────────────────────────────────────────────────────────
+│ 💍 Pendant: Shows if hero-of-legend bin scripts are in use
+│ 🛡️  Sheild: Shows if hero-of-legend aliases are in use
+│ 👕 Tunic: This Theme
+└─────────────────────────────────────────────────────────────────────────────────────────
 👕 $USER used the Pegasus Boots 🥾. Now they can run commands super quick!
 '|less"
 
 # alias \?="echo '
-# ╔ 💍 HUD ══════════════════════════════════════════════════════════════════════════════════
-# ║ 🗡️ z  - Sword: Wipes the screen, shows your inventory, and awaits your next command. 
-# ║ 🗝️ k  - Keys: # of child directorys; k[1-9] Uses # of keys to cd .. that many times.
-# ║ 💣 b  - Bombs: # of Gigs in Trash; b/bomb blows up the trash bin, b+ [FILE] moves file to trash, b- lists trash  
-# ║ 🏹 a  - Arrows: # of files in ~/Downloads; a/arw is a direct shot to ~/Downloads  
-# ║ 💥 x  - Quake: Close the terminal
-# ╠ 🎒 ITEMS ════════════════════════════════════════════════════════════════════════════════
-# ║ ⚡️ a+ - Light Arrows: Bookmark Direct Travel to any location at the speed of light 
-# ║ 🔥 a! - Fire Arrows: Burn through all your downloads - one at a time. Uses rm -i.
-# ║ 🔦 f  - Magic Lantern aka Flashlight: Search the castle for files that match
-# ║ 🎺 lt - Magic Trumpet: Use LocalTunnel to open a pubically accessible portal to any local port.
-# ║ 📗 h  - Magic Book of History: Search through the history of CLI command inputs 
-# ║ 🖍️ n  - Magic marker: Quickly save code snippets. n/net [snippet] Saves to ~/code-net
-# ╠ 🧰 GIT TOOLS aka GITCUTS ════════════════════════════════════════════════════════════════
-# ║ 🔨 A  - Magic Hammer: git add
-# ║ 🌱 B  - Magic Bean:   git checkout -b
-# ║ 📜 C  - Magic Scroll: git commit -m
-# ║ ✨ CO - Magic Powder: git checkout
-# ║ 🪞 D  - Magic Mirror: git diff
-# ║ 🌀 I  - Initiate Flow:   git flow init; 
-# ║ 🍯 M  - Magic Pot: git merge
-# ║ 🪃 P  - Magic Boomerang: git push
-# ║ 🎣 p  - Magic? Fishing Poll: git pull
-# ║ 🍄 S  - Magic Mushroom: git status
-# ╠ 🤺 EQUIPMENT==============================================================================
-# ║ 🥾 ?  - Pegus Boots: Run this Help menu, become uber-micro-fast by honing in on your CLI skills. 
-# ║ 🥊 G  - Power Glove: Custom Heavy Lifting command. Default: rm vendor; rm node_modules; yarn
-# ║ 🤿 v  - Flippers: Coming Soon* Throw on your flippers(VPN) and take a secure dive into the deep web.
-# ║ 🔮 t  - Crystal Ball: HTop
-# ║
-# ║ 💍 Pendant: Shows if hero-of-legend bin scripts are in use
-# ║ 🛡️ Sheild: Shows if hero-of-legend aliases are in use
-# ║ 👕 Tunic: This Theme
-# ╚═════════════════════════════════════════════════════════════════════════════════════════
+# ┌ 💍 HUD ──────────────────────────────────────────────────────────────────────────────────
+# │ 🗡️ z  - Sword: Wipes the screen, shows your inventory, and awaits your next command. 
+# │ 🗝️ k  - Keys: # of child directorys; k[1-9] Uses # of keys to cd .. that many times.
+# │ 💣 b  - Bombs: # of Gigs in Trash; b/bomb blows up the trash bin, b+ [FILE] moves file to trash, b- lists trash  
+# │ 🏹 a  - Arrows: # of files in ~/Downloads; a/arw is a direct shot to ~/Downloads  
+# │ 💥 x  - Quake: Close the terminal
+# ├ 🎒 ITEMS ────────────────────────────────────────────────────────────────────────────────
+# │ ⚡️ a+ - Light Arrows: Bookmark Direct Travel to any location at the speed of light 
+# │ 🔥 a! - Fire Arrows: Burn through all your downloads - one at a time. Uses rm -i.
+# │ 🔦 f  - Magic Lantern aka Flashlight: Search the castle for files that match
+# │ 🎺 lt - Magic Trumpet: Use LocalTunnel to open a pubically accessible portal to any local port.
+# │ 📗 h  - Magic Book of History: Search through the history of CLI command inputs 
+# │ 🖍️ n  - Magic marker: Quickly save code snippets. n/net [snippet] Saves to ~/code-net
+# ├ 🧰 GIT TOOLS aka GITCUTS ────────────────────────────────────────────────────────────────
+# │ 🔨 A  - Magic Hammer: git add
+# │ 🌱 B  - Magic Bean:   git checkout -b
+# │ 📜 C  - Magic Scroll: git commit -m
+# │ ✨ CO - Magic Powder: git checkout
+# │ 🪞 D  - Magic Mirror: git diff
+# │ 🌀 I  - Initiate Flow:   git flow init; 
+# │ 🍯 M  - Magic Pot: git merge
+# │ 🪃 P  - Magic Boomerang: git push
+# │ 🎣 p  - Magic? Fishing Poll: git pull
+# │ 🍄 S  - Magic Mushroom: git status
+# ├ 🤺 EQUIPMENT==============================================================================
+# │ 🥾 ?  - Pegus Boots: Run this Help menu, become uber-micro-fast by honing in on your CLI skills. 
+# │ 🥊 G  - Power Glove: Custom Heavy Lifting command. Default: rm vendor; rm node_modules; yarn
+# │ 🤿 v  - Flippers: Coming Soon* Throw on your flippers(VPN) and take a secure dive into the deep web.
+# │ 🔮 t  - Crystal Ball: HTop
+# │
+# │ 💍 Pendant: Shows if hero-of-legend bin scripts are in use
+# │ 🛡️ Sheild: Shows if hero-of-legend aliases are in use
+# │ 👕 Tunic: This Theme
+# └─────────────────────────────────────────────────────────────────────────────────────────
 # 🥾 $USER used the Pegasus Boots. Now they can run commands super quick!
 # '"

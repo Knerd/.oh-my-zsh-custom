@@ -2,6 +2,7 @@
   SETTINGS
 //////////////////////////////////////////////////////////////////////////'
   HERO_HIDE_ITEMS=0
+  HERO_MINMAL=0
 
 : '////////////////////////////////////////////////////////////////////////
   CONSTANTS
@@ -77,6 +78,7 @@
     [toolbox]=🧰    # Toolbox
     [trash]=🗑       # Trash
     [watch]=⌚      # Watch
+    [tunic]=👕
   )
 
   # MAGIC BUTTONS
@@ -117,7 +119,7 @@
 
   # HUDS
   declare -A LIFE=(
-    [clean]=" $fg_bold[red]-LIFE- ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥%{$reset_color%}"
+    [clean]=" $fg_bold[red]-LIFE- ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥%{$reset_color%}"
     [dirty]=" $fg_bold[red]-LIFE- ♥ ♥ \ufbdc ♡ ♡ ♡ ♡ ♡ ♡ ♡%{$reset_color%}"
   )
 
@@ -132,7 +134,7 @@
 
   # GIT 
   GIT_HUD=(
-    $HERO[dungeon]
+    $AREA[dungeon]
     $MAGIC[hammer]
     $MAGIC[bean]
     $MAGIC[scroll]
@@ -268,12 +270,11 @@ ${zHUD[@]}$Z"
   # END: precmd
 }
 
-
 showSplash(){
 << SPLASH 
         ()   ╔╦╗╦ ╦╔═╗  ╦  ╔═╗╔═╗╔═╗╔╗╔╔╦╗  ╔═╗╔═╗
         )(    ║ ╠═╣║╣   ║  ║╣ ║ ╦║╣ ║║║ ║║  ║ ║╠╣ 
-      o=️👁️ =o  ╩ ╩ ╩╚═╝  ╩═╝╚═╝╚═╝╚═╝╝╚╝═╩╝  ╚═╝╚  
+      o=️👁️=o  ╩ ╩ ╩╚═╝  ╩═╝╚═╝╚═╝╚═╝╝╚╝═╩╝  ╚═╝╚  
       ██||███╗███████╗██╗  ██╗███████╗██╗     ██╗     
       ╚═|███╔╝██╔════╝██║  ██║██╔════╝██║     ██║     
         ███╔╝ ███████╗███████║█████╗  ██║     ██║     
@@ -281,7 +282,7 @@ showSplash(){
       ██||███╗███████║██║  ██║███████╗███████╗███████╗
       ╚═||═══╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝
         \/              Oh-my & The Hero-of-Legend 👕
-                  press start ️(z) 
+                  press start (z) 
 SPLASH
 }
 
@@ -289,26 +290,22 @@ heyListen(){
   echo "${NPC[fairy]} $HEY_LISTEN"
   export HEY_LISTEN=""
 }
+
 : '////////////////////////////////////////////////////////////////////////
                               EXECUTE
 //////////////////////////////////////////////////////////////////////////'
+
+# skips the splash if HEY_LISTEN is set. Navi will echo that instead 
 if [ $HEY_LISTEN ]; then
-  # When using $ zsh - skip the splash by setting HEY_LISTEN. Navi will echo that instead 
   heyListen
 else
   showSplash
 fi
 
-  # ITEM SHORTCUTS
-  # SEARCH=$MAGIC[lantern]
-  # BELL="${HISTORY}h"
-  # CLEAR="${TRASH}CL"
-  # CLOSE=$MAGIC[exit]
-
   # local _prompt="$(echo -e "${NERDISH_SYMBOL_PROMPT:-"\uf105"}")"
   # local _directory="$(echo -e "${NERDISH_SYMBOL_DIRECTORY:-"\uf0a0"}")"
   # local _branch="$(echo -e "${NERDISH_SYMBOL_GIT_BRANCH:-"\ue725"}")"
   # local _action="$(echo -e "${NERDISH_SYMBOL_GIT_ACTION:-"\uf101"}")"
-  # local _staged="$(echo -e "${NERFISH_SYMBOL_GIT_STAGED:-"\uf055"}")"
+  # local _staged="$(echo -e "${NERDFISH_SYMBOL_GIT_STAGED:-"\uf055"}")"
   # local _unstaged="$(echo -e "${NERDISH_SYMBOL_GIT_UNSTAGED:-"\uf059"}")"
   # local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ %s)"
