@@ -1,162 +1,196 @@
-echo "
-       _____ _          __                      _        ___ 
-      |_   _| |_ ___   |  |   ___ ___ ___ ___ _| |   ___|  _|
-        | | |   | -_|  |  |__| -_| . | -_|   | . |  | . |  _|
-        |_| |_|_|___|  |_____|___|_  |___|_|_|___|  |___|_|                                
-            ███████╗███████╗██╗  ██╗███████╗██╗     ██╗     
-            ╚══███╔╝██╔════╝██║  ██║██╔════╝██║     ██║     
-              ███╔╝ ███████╗███████║█████╗  ██║     ██║     
-             ███╔╝  ╚════██║██╔══██║██╔══╝  ██║     ██║     
-            ███████╗███████║██║  ██║███████╗███████╗███████╗
-            ╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝
-                 --- Oh-my & The Hero-of-Legend --- 
-                         
-                         press start 👕️z
-                               🎮
-"
+: '////////////////////////////////////////////////////////////////////////
+  SETTINGS
+//////////////////////////////////////////////////////////////////////////'
+  HERO_HIDE_ITEMS=0
+  HERO_MINMAL=0
 
-# Characters
-local SEGMENT_SEPARATOR="\ue0b0"
-local PLUSMINUS="\u00b1"
-local DETACHED="\u27a6"
-local BRANCH="🚧"
-local HAMMER="🔨"
-local BOMB="💣"
-local BOW="🏹"
-local SEED="🌱"
-local CROSS="✝"
-local LIGHTNING="🌩"
-local GEAR="⚙"
-local SWORDS=$'⚔'
-local TOOLBOX="🧰"
-local SWORD=$'🗡️'
-local ADDKEY=$'🪄'
-local KEY=$'🗝️'
-local DOOR=$'🚪'
-local DIR=$'\uf413🔺'
-local DIF=$'🪞'
-local SUN=$'☀'
-local MOON=$'🌙'
-local TIME=$'‍⌚'
-local MERGE=$'🏺'
-local PUSH=$'🪃'  
-local PULL=$'🎣'
-local STAT=$'🍄'
-local OUT=$'\ufcdf'
-local LIFE=$'📜'
-local DESK=$'🖥'
-local EXIT=$'💥'
-local MAP=$'🏰'
-local COMPASS=$'🧭'
-local CART=$'🛒'
-local SPARKLE=$'✨'
-local TRASH=$'🗑'
-local HISTORY=$'📗'
-local FIND=$'🔦'
+: '////////////////////////////////////////////////////////////////////////
+  CONSTANTS
+//////////////////////////////////////////////////////////////////////////'
+  # DEPRICATED
+  _l="$fg[blue][$fg[white]"
+  _rl="$reset_color$fg[blue]|$fg[white]"
+  _r="$fg_bold[blue]$reset_color$fg[blue]]$reset_color"
 
-QUOTES=(
-  "🧚 Hey, listen!"
-  "🧙‍♂️ Its dangerous to go alone. Take this!"
-  "🧚 Hey, Wake up $USER!"
-  "🧝‍♂️ Zsh, Its a secret to everybody."
-  "👺 Grumble, Grumble"
-  "🦸‍♂️ Well excuse me, princess!"
-  "🕺 I am Error"
-  "🐲 Dodongo Dislikes Smoke"
-)
-
-local _prompt="$(echo -e "${NERDISH_SYMBOL_PROMPT:-"\uf105"}")"
-local _directory="$(echo -e "${NERDISH_SYMBOL_DIRECTORY:-"\uf0a0"}")"
-local _branch="$(echo -e "${NERDISH_SYMBOL_GIT_BRANCH:-"\ue725"}")"
-local _action="$(echo -e "${NERDISH_SYMBOL_GIT_ACTION:-"\uf101"}")"
-local _staged="$(echo -e "${NERFISH_SYMBOL_GIT_STAGED:-"\uf055"}")"
-local _unstaged="$(echo -e "${NERDISH_SYMBOL_GIT_UNSTAGED:-"\uf059"}")"
-local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ %s)"
-
-_l="$fg[blue][$fg[white]"
-_rl="$reset_color$fg[blue]|$fg[white]"
-_r="$fg_bold[blue]$reset_color$fg[blue]]$reset_color"
-
-
-CASTLE="$reset_color$fg[cyan]$MAP %d"
-FLOOR="$reset_color$fg_bold[green]$DOOR %c"
-
-declare -A MAGIC 
-MAGIC[lantern]=""
-MAGIC[exit]="${EXIT}x"
-MAGIC[hammer]="${HAMMER}A"
-MAGIC[bean]="${SEED}B"
-MAGIC[scroll]="${LIFE}C"
-MAGIC[powder]="${SPARKLE}CO"
-MAGIC[mirror]="${DIF}D"
-MAGIC[flow]="🌀I"
-MAGIC[bottle]="${MERGE}M"
-MAGIC[boomerang]="${PUSH} P"
-MAGIC[poll]="${PULL}p"
-MAGIC[mushroom]="${STAT}S"
-MAGIC[branch]="$fg_bold[cyan]-LVL- $BRANCH"
-
-# ITEM SHORTCUTS
-SEARCH="${FIND}f"
-BELL="${HISTORY}h"
-CLEAR="${TRASH}CL"
-CLOSE=$MAGIC[exit]
-
-# GIT PROMPTS
-GIT_HUD=(
-  "\n"
-  $TOOLBOX 
-  $MAGIC[hammer]
-  $MAGIC[bean]
-  $MAGIC[scroll]
-  $MAGIC[powder]
-  $MAGIC[mirror]
-  $MAGIC[flow]
-  $MAGIC[bottle]
-  $MAGIC[bommerang]
-  $MAGIC[poll]
-  $MAGIC[mushroom]
-  "\n"
-  $MAGIC[branch]
-  "$reset_color$fg_bold[white]"
-)
-
-LIFE=(
-  " $fg_bold[red]-LIFE- 💛💛💛💛💛💛💛💛💛💛  "
-  " $fg_bold[red]-LIFE- ️️💜💜💜🖤🖤🖤🖤🖤🖤🖤  "
-)
-
-# THE TRIFORCE
-TRIFORCE=(
-  "$fg_bold[yellow] ▲ " 
-  "$fg_bold[yellow]▲ ▲"
-)
-
-TRIFORCE_LOWRULE=(
-  "$fg_bold[yellow]⯆ ▼" 
-  "$fg_bold[yellow] ⯆ "
-)
-
-TRIFORCES=(
-  HYRULE
-  LOWRULE
-)
-
-precmd () {
-  # HUDS
-  NAVI=${QUOTES[ $RANDOM % ${#QUOTES[@]} ]}
-  INFO=(
-    "$DESK $fg[white]%m"
-    $NAVI 
+  # THE TRIFORCE
+  TRIFORCE=(
+    " %{$fg_bold[yellow]%} ▲ " 
+    " %{$fg_bold[yellow]%}▲ ▲"
   )
 
-  # BOMBS
-  alias trash-size="du --human-readable --summarize -csh --block-size=1G ~/.local/share/Trash"
-  TRASH_SIZE=(${$(trash-size)//G/ })
-  TRASH_SIZE=$( printf "%.0f" $TRASH_SIZE[1] )
+  TRIFORCE_LOWRULE=(
+    " $fg_bold[yellow]⯆ ▼" 
+    " $fg_bold[yellow] ⯆ "
+  )
 
+  TRIFORCES=(
+    HYRULE
+    LOWRULE
+  )
+
+  # INTRODUCE AREA 
+  declare -A AREA=(
+    [branch]=🚧     
+    [castle]=🏰  
+    [cart]=🛒       
+    [shop]=🏪
+    [door]=🚪 
+    [dungeon]=️💀
+    [controller]=🎮 
+    [moon]=🌙 
+    [sun]=🌞 
+  )
+
+  # INTRODUCE CHARACTERS
+  declare -A NPC=(
+    [dragon]=🐲
+    [elf]=🧝
+    [fairy]=🧚️
+    [genie]=🧞‍♂️
+    [hero]=🦸
+    [king]=🤴
+    [queen]=👸
+    [villian]=🦹
+    [wizard]=🧙
+  )
+
+  # INTRODUCE HERO - LEGEND OF ICONS
+  declare -A HERO=(
+    [bean]=🌱       # Magic Bean 
+    [bomb]=💣       # Magic Bomb 
+    [book]=📗       # Magic Book
+    [boomerang]=🪃  # Magic Boomerang
+    [boots]=🥾      # Magic Boots
+    [bottle]=🏺     # Magic Bottle
+    [bow]=🏹        # Magic Bow
+    [compass]=🧭    # Compass
+    [exit]=💥 
+    [flashlight]=🔦 # Magic Lantern
+    [hammer]=🔨     # Magic Hammer
+    [key]=️️🗝️        # Magic Key
+    [mirror]=🔍     # Magic Mirror
+    [mushroom]=🍄   # Magic Mushroom
+    [poll]=🎣       # Magic Fishing Poll
+    [powder]=✨     # Magic Powder 
+    [scroll]=📜     # Magic Scroll
+    [sword]=️🗡️      # Magic Sword
+    [swords]=⚜️      # 
+    [toolbox]=🧰    # Toolbox
+    [trash]=🗑       # Trash
+    [watch]=⌚      # Watch
+    [tunic]=👕
+  )
+
+  # MAGIC BUTTONS
+  declare -A BUTTONS=(
+    [bean]="B"
+    [bomb]="b"
+    [boomerang]=" P"
+    [boots]="?"
+    [bottle]="M"
+    [bow]="a"
+    [exit]="x"
+    [hammer]="A"
+    [key]=" k"
+    [lantern]="f"
+    [mirror]="D"
+    [mushroom]="S"
+    [poll]="p"
+    [powder]="CO"
+    [scroll]="C"
+    [sword]=" z"
+  )
+
+  declare QUOTES=(
+    "👺 Grumble, Grumble"
+    "${NPC[elf]} Zshhhhh, Its a secret to everybody."
+    "${NPC[fairy]} Hey, listen!"
+    "${NPC[king]}️ Well excuse me, princess!"
+    "${NPC[wizard]}️ Its dangerous to go alone. Take this!"
+    # "${NPC[man]}️  I am Error"
+    # "${NPC[dragon]}️ Dodongo Dislikes Smoke"
+    # "${NPC[fairy]} Hey, Wake up $USER!"
+  )
+
+  declare -A MAGIC
+  for index in "${(k)BUTTONS[@]}"; do
+      MAGIC[$index]="${HERO[$index]}${BUTTONS[$index]}"
+  done
+
+  # HUDS
+  declare -A LIFE=(
+    [clean]=" $fg_bold[red]-LIFE- ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥%{$reset_color%}"
+    [dirty]=" $fg_bold[red]-LIFE- ♥ ♥ \ufbdc ♡ ♡ ♡ ♡ ♡ ♡ ♡%{$reset_color%}"
+  )
+
+  HUD=(
+    $MAGIC[bow]
+    $MAGIC[bomb]
+    $MAGIC[key]
+    $MAGIC[sword]
+    $MAGIC[boots]
+    $MAGIC[exit]
+  )
+
+  # GIT 
+  GIT_HUD=(
+    $AREA[dungeon]
+    $MAGIC[hammer]
+    $MAGIC[bean]
+    $MAGIC[scroll]
+    $MAGIC[powder]
+    $MAGIC[mirror]
+    $MAGIC[flow]
+    $MAGIC[bottle]
+    $MAGIC[boomerang]
+    $MAGIC[poll]
+    $MAGIC[mushroom]
+  )
+
+  ZSH_THEME_GIT_PROMPT_PREFIX="\n%{$fg_bold[cyan]%}-LVL- ${AREA[branch]}%{$fg_bold[white]%} "
+  ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
+  ZSH_THEME_GIT_PROMPT_CLEAN=$LIFE[clean]
+  ZSH_THEME_GIT_PROMPT_DIRTY=$LIFE[dirty]
+
+  # CLOCK COUNTER
+  TMOUT=1
+
+  # CLOCK
+  CLOCK=(
+    "%{$fg[yellow]%}"
+    # "-TIME-"
+    "${AREA[sun]}%D{%b}/%{$fg[cyan]%}%D{%d}"
+    "${AREA[moon]}%D{%a}%{$reset_color%}"
+    "${HERO[watch]}%D{%I:%M:%S%P}"
+  )
+
+  INFO=(
+    "${AREA[controller]} %{$fg[white]%}%m"
+    "$CLOCK[@]"
+  )
+
+: '////////////////////////////////////////////////////////////////////////
+                          METHODS/FUNCTIONS 
+//////////////////////////////////////////////////////////////////////////'
+TRAPALRM() {
+  zle reset-prompt
+}
+
+doubleDigits(){
+  NUM=$1
+  if [ $NUM -gt 99 ] ; then
+    NUM=99 
+  fi
+  return $NUM
+}
+
+countItems(){
   # ARROWS 
   DOWNLOAD_DIRS=$( ls -l ~/Downloads/ | wc -l )
+
+  # BOMBS
+  TRASH_SIZE=(${$(trash-size)//G/ })
+  TRASH_SIZE=$( printf "%.0f" $TRASH_SIZE[1] )
 
   # KEYS
   KEYS=0
@@ -166,45 +200,112 @@ precmd () {
   fi
 
   # ITEMS
-  ARROWS="$DOWNLOAD_DIRS${BOW}a"
-  BOMBS="$TRASH_SIZE${BOMB}b"
-  KEYS="${KEYS}${KEY} k"
+  doubleDigits $DOWNLOAD_DIRS
+  ARROWS=$(printf '%02d' $?)
 
-  # CLOCK
-  CLOCK=(
-    -TIME-
-    $SUN%D{%B}/%D{%d}
-    $MOON %D{%A}
-    $TIME%D{%I:%M:%S%P}
+  doubleDigits $TRASH_SIZE
+  BOMBS=$(printf '%02d' $?)
+
+  doubleDigits $KEYS
+  KEYS=$(printf '%02d' $?)
+
+  zHUD=(
+    "ˣ$ARROWS"
+    "ˣ$BOMBS"
+    "ˣ$KEYS"
+    ""
   )
-
-  HUD=(
-    $SWORD z
-    "$CLOCK[@]"
-    $KEYS 
-    $BOMBS 
-    $ARROWS
-    $CLOSE
-  )
-
-  # GIT PROMPTS
-  ZSH_THEME_GIT_PROMPT_PREFIX=$GIT_HUD[@]
-  ZSH_THEME_GIT_PROMPT_CLEAN=$LIFE[1]
-  ZSH_THEME_GIT_PROMPT_DIRTY=$LIFE[2]
-  ZSH_THEME_GIT_PROMPT_SUFFIX=$reset_color
-
-  # HERO OF LEGEND TERMINAL PROMPT
-  RPROMPT="$HUD[@]"
-
-  PROMPT="$INFO[@] $(git_prompt_info)
-  $TRIFORCE[1] $CASTLE 
-  $TRIFORCE[2] $FLOOR
-  $ $reset_color"
 }
 
-# CLOCK COUNTER
-TMOUT=1
-
-TRAPALRM() {
-  zle reset-prompt
+# TODO: Refactor this...
+displayHUD(){
+  ITEM_HUD=""
+  if [ "$(git_prompt_info)" ]; then
+    if [ "$HERO_HIDE_ITEMS" = "1" ]; then
+      ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
+      zHUD=()
+    else
+      ZSH_THEME_GIT_PROMPT_SUFFIX="\n%{$HUD[@]%} %{$GIT_HUD[@]%}"
+    fi
+    ITEM_HUD="$(git_prompt_info)" 
+  else
+    if [ "$HERO_HIDE_ITEMS" = "1" ]; then
+      ITEM_HUD=""
+      zHUD=()
+    else
+      ITEM_HUD=$(echo -e "\n%{$reset_color%}%{$HUD[@]%}")
+    fi
+  fi
 }
+
+# HERO OF LEGEND TERMINAL PROMPT
+setupLegendaryPrompt(){
+  if [ $HEY_LISTEN ]; then
+    if [ $HOL_NPC ]; then
+      NAVI="${NPC[$HOL_NPC]}: \"${HEY_LISTEN}\""
+    else
+      NAVI="${NPC[fairy]}: \"Hey, listen! ${HEY_LISTEN}\""
+    fi
+
+    HEY_LISTEN=""
+    HOL_NPC=""
+  else
+    NAVI=${QUOTES[ $RANDOM % ${#QUOTES[@]} ]}
+  fi
+  FLOOR="${AREA[door]} %{$reset_color%}%{$fg_bold[green]%}%c"
+  CASTLE="${AREA[castle]} %{$reset_color%}%{$fg[cyan]%}%d"
+  Z="%{$fg_bold[green]%}Ƶ %{$reset_color%}"
+}
+
+precmd () {
+  countItems
+  displayHUD
+  setupLegendaryPrompt
+
+  PROMPT="$NAVI 
+$TRIFORCE[1] $FLOOR
+$TRIFORCE[2] $CASTLE $ITEM_HUD 
+${zHUD[@]}$Z"
+  RPROMPT="${INFO[@]}"
+  # END: precmd
+}
+
+showSplash(){
+<< SPLASH 
+        ()   ╔╦╗╦ ╦╔═╗  ╦  ╔═╗╔═╗╔═╗╔╗╔╔╦╗  ╔═╗╔═╗
+        )(    ║ ╠═╣║╣   ║  ║╣ ║ ╦║╣ ║║║ ║║  ║ ║╠╣ 
+      o=️👁️=o  ╩ ╩ ╩╚═╝  ╩═╝╚═╝╚═╝╚═╝╝╚╝═╩╝  ╚═╝╚  
+      ██||███╗███████╗██╗  ██╗███████╗██╗     ██╗     
+      ╚═|███╔╝██╔════╝██║  ██║██╔════╝██║     ██║     
+        ███╔╝ ███████╗███████║█████╗  ██║     ██║     
+       ██|╔╝  ╚════██║██╔══██║██╔══╝  ██║     ██║     
+      ██||███╗███████║██║  ██║███████╗███████╗███████╗
+      ╚═||═══╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝
+        \/              Oh-my & The Hero-of-Legend 👕
+                  press start (z) 
+SPLASH
+}
+
+heyListen(){
+  echo "${NPC[fairy]} $HEY_LISTEN"
+  export HEY_LISTEN=""
+}
+
+: '////////////////////////////////////////////////////////////////////////
+                              EXECUTE
+//////////////////////////////////////////////////////////////////////////'
+
+# skips the splash if HEY_LISTEN is set. Navi will echo that instead 
+if [ $HEY_LISTEN ]; then
+  heyListen
+else
+  showSplash
+fi
+
+  # local _prompt="$(echo -e "${NERDISH_SYMBOL_PROMPT:-"\uf105"}")"
+  # local _directory="$(echo -e "${NERDISH_SYMBOL_DIRECTORY:-"\uf0a0"}")"
+  # local _branch="$(echo -e "${NERDISH_SYMBOL_GIT_BRANCH:-"\ue725"}")"
+  # local _action="$(echo -e "${NERDISH_SYMBOL_GIT_ACTION:-"\uf101"}")"
+  # local _staged="$(echo -e "${NERDFISH_SYMBOL_GIT_STAGED:-"\uf055"}")"
+  # local _unstaged="$(echo -e "${NERDISH_SYMBOL_GIT_UNSTAGED:-"\uf059"}")"
+  # local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ %s)"
