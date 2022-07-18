@@ -18,9 +18,24 @@ alias M='git merge '
 alias P='git push'
 alias p='git pull'
 alias S='git status '
-alias I='git flow init '
-alias If+='git flow feature start'
-
+# GIT FLOW
+alias g="git flow "
+alias g.="g release "
+alias g+="g feature "
+alias g!="g hotfix "
+alias g\?="g bugfix"
+alias g+s="g+ start"
+alias g+p="g+ publish"
+alias g+f="g+ finish"
+alias g!s="g! start"
+alias g!p="g! publish"
+alias g!f="g! finish"
+alias g\?s="g? start"
+alias g\?p="g? publish"
+alias g\?f="g? finish"
+alias g.s="g. start"
+alias g.p="g. publish"
+alias g.f="g. finish"
 
 # Find things
 # Find a file recursively
@@ -50,14 +65,16 @@ alias k9="k 9"
 '
 
 alias i="((HERO_HIDE_ITEMS=!HERO_HIDE_ITEMS)); CL"
+
 alias hud="echo ' 
 ┌💍 HUD ────────────────────┐  ┌Crystals──┐
-│ 🗡 z 🗝 k 🏹 a 💣 b 💥 x  │  │   💎 💎  │  
+│ 🗡 z 🗝 k 🏹 a ⚡a+ 🔥a!  │  │   💎 💎  │  
 ├───────────────────────────┤  │ 💎 💎 💎 │
-│ 🎒 ITEMS  ⚡a+ 💣 b?      │  │   💎 💎  │     
-│ 🔦 f 📗 h 🔥a! 🎺 lt 🖍 n │  └──────────┘
-├───────────────────────────┤
-│ 🧰 GIT TOOLS              │ 
+│ 🎒 ITEMS  💣 b  💥 x      │  │   💎 💎  │     
+│ 🔦 f 📗 h 💣 b? 🎺 lt 🖍 n │  └──────────┘
+├───────────────────────────┤  ┌z┐ ┌ k ┐
+│ 🧰 GIT TOOLS              │ ️ 🗡   🔑 
+├───────────────────────────┤  └─┘ └───┘
 │ 🔨 A 🌱 B 📜 C ✨ CO 🪞 D │
 │ 🌀 I 🍯 M 🪃 P 🎣 p  🍄 S │ 
 ├───────────────────────────┤  
@@ -65,24 +82,53 @@ alias hud="echo '
 │ 🥾 ?  🥊 e   🤿 v  🔮 t   │  │ 💍 🛡️  👕 │   
 └───────────────────────────┘  └──────────┘
 '"
+
+# Classic 
+# alias hud="echo ' 
+# ┌💍 HUD ──a─────────────────┐  ┌Crystals──┐
+# │ 🏹 a 🪃 P 🎣 p 💣 b  🍄 S │  │   💎 💎  │  
+# │ 🔥a! ⚡ a+ 🌀 g ✨ CO 💥 x │  │ 💎 💎 💎 │
+# │ 🔦 f 🔨 A 🎺 lt🖍 n 📗 h  │  │   💎 💎  │
+# │️ 🍯 M 🌱 B 📜 C 🪞 D       │
+# ├ EQUIPMENT  ───────────────┤  ┌EQUIPPED──┐
+# │ 🥾 ?  🥊 e   🤿 v  🔮 t   │  │ 💍 🛡️ 👕 │   
+# └───────────────────────────┘  └──────────┘
+# '"
+
+# Modern
+alias hud="echo ' 
+┌ 💍 HUD ───────────────────┐  ┌Crystals──┐
+│ 🏹 a 💣 b 🔑 k 🗡 z 💥 x  │  │  💎 💎   │  
+├ 🎒 ITEMS  ────────────────┤  │ 💎 💎 💎 │
+│ ⚡ a+ 🔥 a!               │  │   💎 💎  │     
+│ 🔦 f  🎺 lt 🖍 m 📗 h     │  └──────────┘
+├ 🧰 GIT TOOLS ─────────────┤  ┌EQUIPPED──┐
+│ 🌀 g 🪃 P 🎣 p ✨ CO 🍄 S │  │ 💍 🛡️ 👕 │ 
+│ 🔨 A 🌱 B 📜 C 🪞 D 🫙 M  │  │ 🗺️ 🧭 🔑 │
+├ 🤺 DO ────────────────────┤  └──────────┘
+│ 🥾 ?  🥊 G  🤿 v  🔮 t    │     
+└───────────────────────────┘ 
+'"
+
 alias z="CL; hud"
 alias z+='bash -c "$(curl -fsSL https://raw.githubusercontent.com/Knerd/hero-bin/develop/hero-magic-chest)"'
 
 # ITEMS
-alias bomb="hero-magic-bomb"
-alias b=bomb
-alias b+="bomb file"
-alias b-="bomb i"
-alias b\?="bomb --help"
 alias arw="~/Downloads; ls -l; echo '🏹 ---> Nice shot! Straight to Downloads. 🎯'"
 alias a=arw
-
-alias G="rm -i vendor; rm -i node_modules; yarn"
-alias n="source hero-magic-marker"
-alias n-="source hero-magic-marker -d"
-# alias fire="fire-arrows"
 alias a!="hero-fire-arrows"
 alias a+="hero-light-arrow"
+
+alias bomb="hero-magic-bomb"
+alias b=bomb
+alias b\?="bomb --help"
+alias b!="bomb !"
+alias b-="bomb l"
+alias b+="bomb file"
+
+alias G="rm -i vendor; rm -i node_modules; yarn"
+alias m="source hero-magic-marker"
+alias m-="source hero-magic-marker -d"
 
 declare -A HERO_HELP=(
     [z]="🗡️  z  - Sword: Wipes the screen, shows your inventory, and awaits your next command."
@@ -97,7 +143,7 @@ declare -A HERO_HELP=(
     [B]="🌱 B  - Magic Bean:   git checkout -b"
     [C]="📜 C  - Magic Scroll: git commit -m"
     [D]="🪞  D  - Magic Mirror: git diff"
-    [I]="🌀 I  - Magic Flow:   git flow init;"
+    [g]="🌀 g  - Git Flow:   git flow; g+,g!,g?,g."
     [M]="🍯 M  - Magic Pot: git merge"
     [P]="🪃  P  - Magic Boomerang: git push"
     [p]="🎣 p  - Magic? Fishing Poll: git pull"
@@ -172,41 +218,3 @@ alias \?="echo '
 └─────────────────────────────────────────────────────────────────────────────────────────
 👕 $USER used the Pegasus Boots 🥾. Now they can run commands super quick!
 '|less"
-
-# alias \?="echo '
-# ┌ 💍 HUD ──────────────────────────────────────────────────────────────────────────────────
-# │ 🗡️ z  - Sword: Wipes the screen, shows your inventory, and awaits your next command. 
-# │ 🗝️ k  - Keys: # of child directorys; k[1-9] Uses # of keys to cd .. that many times.
-# │ 💣 b  - Bombs: # of Gigs in Trash; b/bomb blows up the trash bin, b+ [FILE] moves file to trash, b- lists trash  
-# │ 🏹 a  - Arrows: # of files in ~/Downloads; a/arw is a direct shot to ~/Downloads  
-# │ 💥 x  - Quake: Close the terminal
-# ├ 🎒 ITEMS ────────────────────────────────────────────────────────────────────────────────
-# │ ⚡️ a+ - Light Arrows: Bookmark Direct Travel to any location at the speed of light 
-# │ 🔥 a! - Fire Arrows: Burn through all your downloads - one at a time. Uses rm -i.
-# │ 🔦 f  - Magic Lantern aka Flashlight: Search the castle for files that match
-# │ 🎺 lt - Magic Trumpet: Use LocalTunnel to open a pubically accessible portal to any local port.
-# │ 📗 h  - Magic Book of History: Search through the history of CLI command inputs 
-# │ 🖍️ n  - Magic marker: Quickly save code snippets. n/net [snippet] Saves to ~/code-net
-# ├ 🧰 GIT TOOLS aka GITCUTS ────────────────────────────────────────────────────────────────
-# │ 🔨 A  - Magic Hammer: git add
-# │ 🌱 B  - Magic Bean:   git checkout -b
-# │ 📜 C  - Magic Scroll: git commit -m
-# │ ✨ CO - Magic Powder: git checkout
-# │ 🪞 D  - Magic Mirror: git diff
-# │ 🌀 I  - Initiate Flow:   git flow init; 
-# │ 🍯 M  - Magic Pot: git merge
-# │ 🪃 P  - Magic Boomerang: git push
-# │ 🎣 p  - Magic? Fishing Poll: git pull
-# │ 🍄 S  - Magic Mushroom: git status
-# ├ 🤺 EQUIPMENT==============================================================================
-# │ 🥾 ?  - Pegus Boots: Run this Help menu, become uber-micro-fast by honing in on your CLI skills. 
-# │ 🥊 G  - Power Glove: Custom Heavy Lifting command. Default: rm vendor; rm node_modules; yarn
-# │ 🤿 v  - Flippers: Coming Soon* Throw on your flippers(VPN) and take a secure dive into the deep web.
-# │ 🔮 t  - Crystal Ball: HTop
-# │
-# │ 💍 Pendant: Shows if hero-of-legend bin scripts are in use
-# │ 🛡️ Sheild: Shows if hero-of-legend aliases are in use
-# │ 👕 Tunic: This Theme
-# └─────────────────────────────────────────────────────────────────────────────────────────
-# 🥾 $USER used the Pegasus Boots. Now they can run commands super quick!
-# '"
