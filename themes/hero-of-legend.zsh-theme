@@ -4,40 +4,24 @@
   HERO_HIDE_ITEMS=0
   HERO_MINMAL=0
 
+  # Hero of Legend bin scripts
+  HERO_BIN="$HOME/.oh-my-zsh/custom/bin"
+  export PATH="$HERO_BIN:$PATH"
+
 : '////////////////////////////////////////////////////////////////////////
   CONSTANTS
 //////////////////////////////////////////////////////////////////////////'
-  # DEPRICATED
-  _l="$fg[blue][$fg[white]"
-  _rl="$reset_color$fg[blue]|$fg[white]"
-  _r="$fg_bold[blue]$reset_color$fg[blue]]$reset_color"
-
-  # THE TRIFORCE
-  TRIFORCE=(
-    " %{$fg_bold[yellow]%} ▲ " 
-    " %{$fg_bold[yellow]%}▲ ▲"
-  )
-
-  TRIFORCE_LOWRULE=(
-    " $fg_bold[yellow]⯆ ▼" 
-    " $fg_bold[yellow] ⯆ "
-  )
-
-  TRIFORCES=(
-    HYRULE
-    LOWRULE
-  )
 
   # INTRODUCE AREA 
   declare -A AREA=(
     [branch]=🚧     
-    [castle]=🏰  
     [cart]=🛒       
-    [shop]=🏪
+    [castle]=🏰  
+    [controller]=🎮 
     [door]=🚪 
     [dungeon]=️💀
-    [controller]=🎮 
     [moon]=🌙 
+    [shop]=🏪
     [sun]=🌞 
   )
 
@@ -56,6 +40,11 @@
 
   # INTRODUCE HERO - LEGEND OF ICONS
   declare -A HERO=(
+    [tunic]=👕
+    [compass]=🧭    # Compass
+    [map]=🗺        # Compass
+    [key]=️️🔑        # Magic Key
+
     [bean]=🌱       # Magic Bean 
     [bomb]=💣       # Magic Bomb 
     [book]=📗       # Magic Book
@@ -63,11 +52,9 @@
     [boots]=🥾      # Magic Boots
     [bottle]=🏺     # Magic Bottle
     [bow]=🏹        # Magic Bow
-    [compass]=🧭    # Compass
     [exit]=💥 
     [flashlight]=🔦 # Magic Lantern
     [hammer]=🔨     # Magic Hammer
-    [key]=️️🗝️        # Magic Key
     [mirror]=🔍     # Magic Mirror
     [mushroom]=🍄   # Magic Mushroom
     [poll]=🎣       # Magic Fishing Poll
@@ -78,10 +65,9 @@
     [toolbox]=🧰    # Toolbox
     [trash]=🗑       # Trash
     [watch]=⌚      # Watch
-    [tunic]=👕
   )
 
-  # MAGIC BUTTONS
+  # MAGIC BUTTONS -  Match keys to HERO items
   declare -A BUTTONS=(
     [bean]="B"
     [bomb]="b"
@@ -91,14 +77,14 @@
     [bow]="a"
     [exit]="x"
     [hammer]="A"
-    [key]=" k"
+    [key]="k"
     [lantern]="f"
     [mirror]="D"
     [mushroom]="S"
     [poll]="p"
     [powder]="CO"
     [scroll]="C"
-    [sword]=" z"
+    [sword]="z"
   )
 
   declare QUOTES=(
@@ -114,8 +100,24 @@
 
   declare -A MAGIC
   for index in "${(k)BUTTONS[@]}"; do
-      MAGIC[$index]="${HERO[$index]}${BUTTONS[$index]}"
+    MAGIC[$index]="${HERO[$index]}${BUTTONS[$index]}"
   done
+
+  # THE TRIFORCE
+  TRIFORCE=(
+    " %{$fg_bold[yellow]%} ▲ " 
+    " %{$fg_bold[yellow]%}▲ ▲"
+  )
+
+  TRIFORCE_LOWRULE=(
+    " $fg_bold[yellow]⯆ ▼" 
+    " $fg_bold[yellow] ⯆ "
+  )
+
+  TRIFORCES=(
+    HYRULE
+    LOWRULE
+  )
 
   # HUDS
   declare -A LIFE=(
@@ -242,9 +244,9 @@ displayHUD(){
 setupLegendaryPrompt(){
   if [ $HEY_LISTEN ]; then
     if [ $HOL_NPC ]; then
-      NAVI="${NPC[$HOL_NPC]}: \"${HEY_LISTEN}\""
+      NAVI="${NPC[$HOL_NPC]} \"${HEY_LISTEN}\""
     else
-      NAVI="${NPC[fairy]}: \"Hey, listen! ${HEY_LISTEN}\""
+      NAVI="${NPC[fairy]} \"Hey, listen! ${HEY_LISTEN}\""
     fi
 
     HEY_LISTEN=""
@@ -262,11 +264,11 @@ precmd () {
   displayHUD
   setupLegendaryPrompt
 
-  PROMPT="$NAVI 
+  PROMPT="${INFO[@]} 
 $TRIFORCE[1] $FLOOR
 $TRIFORCE[2] $CASTLE $ITEM_HUD 
 ${zHUD[@]}$Z"
-  RPROMPT="${INFO[@]}"
+  RPROMPT="$NAVI"
   # END: precmd
 }
 
@@ -282,7 +284,8 @@ showSplash(){
       ██||███╗███████║██║  ██║███████╗███████╗███████╗
       ╚═||═══╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝
         \/              Oh-my & The Hero-of-Legend 👕
-                  press start (z) 
+
+                    PRESS START (z) 
 SPLASH
 }
 
@@ -302,10 +305,15 @@ else
   showSplash
 fi
 
-  # local _prompt="$(echo -e "${NERDISH_SYMBOL_PROMPT:-"\uf105"}")"
-  # local _directory="$(echo -e "${NERDISH_SYMBOL_DIRECTORY:-"\uf0a0"}")"
-  # local _branch="$(echo -e "${NERDISH_SYMBOL_GIT_BRANCH:-"\ue725"}")"
-  # local _action="$(echo -e "${NERDISH_SYMBOL_GIT_ACTION:-"\uf101"}")"
-  # local _staged="$(echo -e "${NERDFISH_SYMBOL_GIT_STAGED:-"\uf055"}")"
-  # local _unstaged="$(echo -e "${NERDISH_SYMBOL_GIT_UNSTAGED:-"\uf059"}")"
-  # local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ %s)"
+# DEPRICATED
+# _l="$fg[blue][$fg[white]"
+# _rl="$reset_color$fg[blue]|$fg[white]"
+# _r="$fg_bold[blue]$reset_color$fg[blue]]$reset_color"
+
+# local _prompt="$(echo -e "${NERDISH_SYMBOL_PROMPT:-"\uf105"}")"
+# local _directory="$(echo -e "${NERDISH_SYMBOL_DIRECTORY:-"\uf0a0"}")"
+# local _branch="$(echo -e "${NERDISH_SYMBOL_GIT_BRANCH:-"\ue725"}")"
+# local _action="$(echo -e "${NERDISH_SYMBOL_GIT_ACTION:-"\uf101"}")"
+# local _staged="$(echo -e "${NERDFISH_SYMBOL_GIT_STAGED:-"\uf055"}")"
+# local _unstaged="$(echo -e "${NERDISH_SYMBOL_GIT_UNSTAGED:-"\uf059"}")"
+# local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ %s)"
