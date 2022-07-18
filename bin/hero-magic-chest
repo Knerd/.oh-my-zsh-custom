@@ -1,0 +1,164 @@
+#!/bin/bash
+: '
+  Usage: hero-magic-chest [OPTIONS] ITEM
+  Options:
+    -h Shows usage help
+'
+
+ASCII=(
+  "     __________   "
+  "    /\____;;___\  "
+  "    | /         / "
+  "    \`. ())oo() .  "
+  "    |\(%()*^^()^\ "
+  "   %| |-%-------| "
+  "  % \ | %  ))   | "
+  "  %  \|%________| "
+  "   %%%%           "
+)
+
+TEXT=(
+  ""
+  "╔╦╗╔═╗╔═╗╦╔═╗  ┌─┐┬ ┬┌─┐┌─┐┌┬┐"
+  "║║║╠═╣║ ╦║║    │  ├─┤├┤ └─┐ │ "
+  "╩ ╩╩ ╩╚═╝╩╚═╝  └─┘┴ ┴└─┘└─┘ ┴ "
+  ""
+)
+
+RED="\e[31m"
+GREEN="\e[32m"
+ENDCOLOR="\e[0m"
+
+declare -A EXISTS=(
+  [yes]="${GREEN}✓"
+  [no]="${RED}x"
+)
+
+isInstalled(){
+  [ -f $1 ] && echo ${EXISTS[yes]} || echo ${EXISTS[no]}
+}
+
+showSplash(){
+  ART=(
+    "\n${ASCII[0]} ${TEXT[0]}"
+    "\n${ASCII[1]} ${TEXT[0]}"
+    "\n${ASCII[2]} ${TEXT[0]}"
+    "\n${ASCII[3]} ${TEXT[0]}"
+    "\n${ASCII[4]} ${TEXT[1]}"
+    "\n${ASCII[5]} ${TEXT[2]}"
+    "\n${ASCII[6]} ${TEXT[3]}"
+    "\n${ASCII[7]} ${TEXT[4]}"
+    "\n${ASCII[8]} ${TEXT[0]}"
+  )
+  echo -e "${ART[@]}"
+  echo "👕 $USER opens the magic chest and discovers some goodies inside..."
+}
+
+
+downloadBinFile(){
+  ITEM=$1
+  case $ITEM in
+    "a!") FILE=hero-fire-arrows ;;
+    "a+") FILE=hero-light-arrow ;;
+    b)  
+    FILE=hero-magic-bomb 
+    export HEY_LISTEN="Use b to initiate the bomb!"
+    ;;
+    n)  FILE=hero-magic-marker ;;
+    k)  FILE=hero-magic-key ;;
+    *)  FILE="" 
+    ;;
+  esac
+
+  if [ $FILE ]; then
+    echo "Downloading... $FILE"
+    curl -O https://raw.githubusercontent.com/Knerd/hero-bin/develop/${FILE}
+    chmod +x $FILE
+  fi
+}
+
+magicChest(){
+  cd $HOME/.oh-my-zsh/custom/bin
+
+  declare -A CHECK=(
+    [b]=$(isInstalled hero-magic-bomb)
+    [a+]=$(isInstalled hero-light-arrow)
+    [a!]=$(isInstalled hero-fire-arrows)
+    [n]=$(isInstalled hero-magic-marker)
+    [k]=$(isInstalled hero-magic-key)
+    [aliases]=$(isInstalled /home/$USER/.oh-my-zsh/custom/aliases/hero-shortcuts.alias.zsh)
+  )
+
+  CHEST=(
+      "${CHECK[a!]} a!) 🏹🔥 Fire Arrows: Burn through your downloads one at a time.\n"${ENDCOLOR}
+      "${CHECK[a+]} a+) 🏹⚡ Bow of Light: Quickly create aliases to any location.\n"${ENDCOLOR}
+      "${CHECK[b]} b) 💣 Magic Bomb: Blow files to trash, blow up your trash.\n"${ENDCOLOR}
+      "${CHECK[n]} n) 🖍️ Magic Marker: Use n to quicly mark down snippets.\n"${ENDCOLOR}
+      "${CHECK[k]} k) 🗝️ Magic Key: Use k[2-9] to walk up directories # of times\n"${ENDCOLOR}
+      "${CHECK[aliases]} +) 💍 Hero Aliases: Add hero-shortcuts\n"${ENDCOLOR}
+      "  x) 🧰 Close the chest"
+  )
+  echo -e " ${CHEST[@]}"
+
+  read -ep "What item would you like to grab? " ITEM
+  case $ITEM in
+    a|a+|a!) 
+      echo ""
+      downloadBinFile "a+"
+      downloadBinFile "a!" 
+    ;;
+    b|b+) 
+      echo "Grabbing dem bombs."
+      downloadBinFile b 
+    ;;
+    n) 
+      echo "Grabbing the Magic Marker"
+      downloadBinFile n 
+    ;;
+    k) 
+      echo "Grabbing the Magic Marker"
+      downloadBinFile k 
+    ;;
+    x) 
+      echo "👕 $USER closes the chest."
+      exit ;;
+    *) echo "Nothing Selected..."; 
+    ;;
+  esac
+  magicChest
+}
+
+showHelp(){
+  echo '
+    Usage: This is my usaged
+  '
+}
+
+# Transform long options to short ones
+for arg in "$@"; do
+  shift
+  case "$arg" in
+    '--help')   set -- "$@" '-h'   ;;
+    *)          set -- "$@" "$arg" ;;
+  esac
+done
+
+# Parse short options
+while getopts ":h" opt
+do
+  case "$opt" in
+    h) 
+      showHelp
+      exit 1
+      ;;
+    *)  
+      ;;
+  esac
+done
+
+shift $((OPTIND-1)) # remove options from positional parameters
+
+if (( $OPTIND == 1 )); then
+  showSplash
+  magicChest $@
+fi

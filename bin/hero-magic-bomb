@@ -1,0 +1,109 @@
+#!/bin/bash
+TRASH="/home/$USER/.local/share/Trash/"
+RED="\e[31m"
+GREEN="\e[32m"
+YELLOW="\e[33m"
+BLUE="\e[34m"
+ENDCOLOR="\e[0m"
+
+
+ASCII=(
+  "        ,--! "${ENDCOLOR}
+  "     __/   ${RED}* ${ENDCOLOR}"
+  "   ,d08b.    "${ENDCOLOR}
+  "   0088MM    "${ENDCOLOR}
+  "   '9MMP'    "${ENDCOLOR}
+)
+
+TEXT=(
+  ""
+  "╔╦╗╔═╗╔═╗╦╔═╗  ┌┐ ┌─┐┌┬┐┌┐ ┬"
+  "║║║╠═╣║ ╦║║    ├┴┐│ ││││├┴┐│"
+  "╩ ╩╩ ╩╚═╝╩╚═╝  └─┘└─┘┴ ┴└─┘${RED}*"
+  ""
+)
+
+showSplash(){
+  ART=(
+    "\n${YELLOW}${ASCII[0]} ${TEXT[0]}"
+    "\n${YELLOW}${ASCII[1]} ${TEXT[1]}"
+    "\n${BLUE}${ASCII[2]} ${TEXT[2]}"
+    "\n${BLUE}${ASCII[3]} ${TEXT[3]}"
+    "\n${BLUE}${ASCII[4]} ${TEXT[4]}"
+  )
+  echo -e "${ART[@]}"
+}
+
+bombTrash(){
+  echo 💣 Bombing the Trash...; 
+  echo "💣 3..."
+  sleep 0.85 
+  echo "💣 2.."
+  sleep 0.85 
+  echo "💣 1!"
+  sleep 0.85 
+  echo "💥 BOOM!"
+  rm -rfi ${TRASH}*;
+}
+
+moveToTrash(){
+  FILE="$1"
+  if [ -f "$FILE" ]; then
+    mv "$FILE" "${TRASH}${FILE}"
+    echo "💥 BOOM!"
+  else
+    bombIsADud
+  fi
+}
+
+listTrash(){
+  ls -l ${TRASH}*; 
+}
+
+bombIsADud(){
+  sleep 1
+  echo "💣 ... its a dud (file not found)"; 
+  sleep 1 
+}
+
+bomb(){
+  showSplash
+  echo "👕 $USER looks in their bomb bag 👜..."; 
+  case $1 in
+    "l")
+      echo 👕 $USER inspects the trash...; 
+      listTrash
+      ;;
+
+    "file")
+      echo "👕 $USER bombed $FILE to the trash..."; 
+      moveToTrash "$2"
+      ;;
+
+    "--help")
+      sleep 0.75 
+      echo "👕 $USER finds the bomb manual and begins reading..."
+      sleep 1.75 
+
+      echo "💣 Ƶ bomb/b[+,-,?] [FILE]
+      b       : List what's in the trash
+      b!      : Execute main exlosive. Targets trash.
+      b+ FILE : Move FILE to trash
+      b?      : Open bomb manual
+      "
+      sleep 7 
+      echo "👕 $USER: Good to Know."
+      # moveToTrash "$2"
+      ;;
+
+    !)
+      bombTrash
+      ;;
+
+    *)
+      listTrash
+      ;;
+  esac
+}
+
+bomb $@
