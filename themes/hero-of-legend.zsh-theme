@@ -179,7 +179,7 @@ countItems(){
   DOWNLOADS=$( ls -p ~/Downloads/ | grep -v / | wc -l )
 
   # BOMBS
-  TRASH_SIZE=(${$(trash-size)//G/ })
+  TRASH_SIZE=(${$(du --human-readable --summarize -csh --block-size=1G ~/.local/share/Trash)//G/ })
   TRASH_SIZE=$( printf "%.0f" $TRASH_SIZE[1] )
 
   # KEYS
