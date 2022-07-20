@@ -3,11 +3,15 @@
 //////////////////////////////////////////////////////////////////////////'
   HERO_HIDE_ITEMS=0
   HERO_MINMAL=0
-
+  
   # Hero of Legend bin scripts
   HERO_BIN="$HOME/.oh-my-zsh/custom/bin"
   export PATH="$HERO_BIN:$PATH"
 
+  # Hero of Legend Aliases
+  source $ZSH_CUSTOM/aliases/hero-shortcuts.alias.zsh
+
+  alias z+='z; bash -c "$(curl -fsSL https://raw.githubusercontent.com/Knerd/.oh-my-zsh-custom/master/bin/hero-magic-chest)"'
 : '////////////////////////////////////////////////////////////////////////
   CONSTANTS
 //////////////////////////////////////////////////////////////////////////'
@@ -102,7 +106,6 @@
   for index in "${(k)BUTTONS[@]}"; do
     MAGIC[$index]="${HERO[$index]}${BUTTONS[$index]}"
   done
-
 
   # HUDS
   declare -A LIFE=(
@@ -285,7 +288,7 @@ showSplash(){
       ╚═||═══╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝
         \/              Oh-my & The Hero-of-Legend 👕
 
-                    PRESS START (z) 
+                    PRESS START (z+) 
 SPLASH
 }
 
