@@ -1,7 +1,7 @@
 # ** Nerd fonts used in comment below
 #  理[ A| B|ﯜ C| CO|繁 D| f| h| M| P| p|ﭾ S| CL| x]  
 
-# Heads Up Display
+: '/////////////////// Heads Up Display //////////////////////////'
 : '
  ┌─┐
  ├─┤
@@ -26,44 +26,40 @@ alias hud="echo '
 │ 🏹 a 💣 b 🔑 k 🗡 z 💥 x  │  │  💎 💎   │  
 ├ 🎒 ITEMS  ────────────────┤  │ 💎 💎 💎 │
 │ 🔥 a! 🔦 f 🎺 lt          │  │   💎 💎  │     
-│ ⚡ a+ 📗 h 🖍 m           │  └──────────┘
-├ 🧰 GIT TOOLS ─────────────┤  ┌ EQUIPPED ┐
-│ 🌀 g 🪃 P 🎣 p ✨ CO 🍄 S │  │ 💍 🛡️ 👕 │ 
-│ 🔨 A 🌱 B 📜 C 🪞 D  🫙 M │  ├ DUNGEON ─┤
-├ 🤺 DO ────────────────────┤  │ 🗺️ 🧭 🔑 │
-│ 🥾 ?  🥊 G  🤿 v  🔮 t    │  └──────────┘  
-└───────────────────────────┘ 
+│ ⚡ a+ 📗 h 🖍 m           │  ├ PENDANTS ┤
+├ 🧰 GIT TOOLS ─────────────┤  │ 💍 👑 🔱️ │
+│ 🌀 g 🪃 P 🎣 p ✨ CO 🍄 S │  ├ EQUIPPED ┤
+│ 🔨 A 🌱 B 📜 C 🪞 D  🫙 M │  │ 🗡 🛡️ 👕 │
+├ 🤺 DO ────────────────────┤  ├ DUNGEON ─┤
+│ 🥾 ?  🥊 G  🤿 v  🔮 t    │  │ 🗺️ 🧭 🔑 │ 
+└───────────────────────────┘  └──────────┘ 
 '"
+# Clear terminal
+alias CL='clear'
+
+# Toggle HUD items
 alias i="((HERO_HIDE_ITEMS=!HERO_HIDE_ITEMS)); CL"
 
+# Clear terminal show hud
 alias z="CL; hud"
-alias z+='bash -c "$(curl -fsSL https://raw.githubusercontent.com/Knerd/hero-bin/develop/hero-magic-chest)"'
 
-# ITEMS
+# Close terminal
+alias x='exit'
+
 alias arw="~/Downloads; ls -l; echo '🏹 ---> Nice shot! Straight to Downloads. 🎯'"
 alias a=arw
+
+# Magic Arrows
 alias a!="hero-fire-arrows"
 alias a+="hero-light-arrow"
 
+# Magic Bomb 
 alias bomb="hero-magic-bomb"
 alias b=bomb
 alias b\?="bomb --help"
 alias b!="bomb !"
 alias b-="bomb l"
 alias b+="bomb file"
-
-alias G="rm -i vendor; rm -i node_modules; yarn"
-alias m="source hero-magic-marker"
-alias m-="source hero-magic-marker -d"
-
-# Find things
-# Find a file recursively
-alias f='find . | grep ' 
-alias F='f'
-
-# Find an old command
-alias h='history | grep '
-alias H='h'
 
 # "Keys"
 alias k="source hero-magic-key"
@@ -76,10 +72,20 @@ alias k7="k 7"
 alias k8="k 8"
 alias k9="k 9"
 
-# Clear terminal
-alias CL='clear'
-# Close terminal
-alias x='exit'
+: '/////////////////// ITEMS //////////////////////////'
+# Magic Marker
+alias mark="source hero-magic-marker"
+alias m="mark"
+alias m-="mark -d"
+
+# Find things
+# Find a file recursively
+alias f='find . | grep ' 
+alias F='f'
+
+# Find an old command
+alias h='history | grep '
+alias H='h'
 
 #### Add git shortcuts - listed in hero-of-legend zsh-theme terminal 
 alias A='git add '
@@ -93,7 +99,9 @@ alias p='git pull'
 alias S='git status '
 
 # GIT FLOW
+alias g@="git remote add "
 alias g="git flow "
+alias g-="g init"
 alias g.="g release "
 alias g+="g feature "
 alias g!="g hotfix "
@@ -111,31 +119,52 @@ alias g.s="g. start"
 alias g.p="g. publish"
 alias g.f="g. finish"
 
+# GEAR
+alias G="powerGloves"
+# Overwrite powerGloves with your own custom heavy lifting commands
+powerGloves(){ rm -i vendor; rm -i node_modules; yarn }
+
+alias t='launchTop'
+launchTop(){ if [ -x "$(command -v htop)" ]; then htop; else top; fi } 
+
+: '///////////// ALIASES for HELP /////////////'
 declare -A HERO_HELP=(
-    [z]="🗡️  z  - Sword: Wipes the screen, shows your inventory, and awaits your next command."
-    [k]="🗝️  k  - Keys: # of child directorys; k[1-9] Uses # of keys to cd .. that many times."
-    [b]="💣 b  - Bombs: # of Gigs in Trash; b/bomb blows up the trash bin, b+ [FILE] moves file to trash, b- lists trash"
+    # HUD
     [a]="🏹 a  - Arrows: # of files in ~/Downloads; a/arw is a direct shot to ~/Downloads"
+    [b]="💣 b  - Bombs: # of Gigs in Trash; b/bomb blows up the trash bin, b+ [FILE] moves file to trash, b- lists trash"
+    [k]="🗝️ k  - Keys: # of child directorys; k[1-9] Uses # of keys to cd .. that many times."
+    [z]="🗡️ z  - Sword: Wipes the screen, shows your inventory, and awaits your next command."
     [x]="💥 x  - Quake: Close the terminal"
+
+    # ITEMS 
+    [a+]="⚡️ a+ - Light Arrows: Bookmark Direct Travel to any location at the speed of light"
+    [a!]="🔥 a! - Fire Arrows: Burn through all your downloads - one at a time. Uses rm -i."
     [f]="🔦 f  - Magic Lantern aka Flashlight: Search the castle for files that match"
     [h]="📗 h  - Magic Book of History: Search through the history of CLI command inputs"
-    [n]="🖍️  n  - Magic Marker: Quickly save code snippets. n/net [snippet] Saves to ~/code-net"
+    [m]="🖍️ m  - Magic Marker: Quickly save code snippets. m/mark [snippet] Saves to ~/hero-magic-marker"
+    [lt]="🎺 lt - Magic Trumpet: Use LocalTunnel to open a pubically accessible portal to any local port."
+
+    # GIT TOOLS 
     [A]="🔨 A  - Magic Hammer: git add"
     [B]="🌱 B  - Magic Bean:   git checkout -b"
     [C]="📜 C  - Magic Scroll: git commit -m"
-    [D]="🪞  D  - Magic Mirror: git diff"
-    [g]="🌀 g  - Git Flow:   git flow; g+,g!,g?,g."
-    [M]="🍯 M  - Magic Pot: git merge"
-    [P]="🪃  P  - Magic Boomerang: git push"
+    [CO]="✨ CO - Magic Powder: git checkout"
+    [D]="🪞 D  - Magic Mirror: git diff"
+    [g]="🌀 g  - Git Flow:   git flow; g-,g+,g!,g?,g."
+    [g-]="🌀 g  - Git Flow: git flow init"
+    [g+]="🌀 g  - Git Flow: git flow feature; g+s g+f g+p"
+    [g!]="🌀 g  - Git Flow: git flow hotfix; g!s g!f g!p"
+    [g?]="🌀 g  - Git Flow: git flow bugfix; g?s g?f g?p"
+    [g.]="🌀 g  - Git Flow: git flow release;  g.s g.f g.p"
+    [M]="🫙 M  - Magic Bottle: git merge"
+    [P]="🪃 P  - Magic Boomerang: git push"
     [p]="🎣 p  - Magic? Fishing Poll: git pull"
     [S]="🍄 S  - Magic Mushroom: git status"
+
+    # GEAR
     [G]="🥊 G  - Power Glove: Custom Heavy Lifting command. Default: rm vendor; rm node_modules; yarn"
     [v]="🤿 v  - Flippers: Coming Soon* Throw on your flippers(VPN) and take a secure dive into the deep web."
-    [t]="🔮 t  - Crystal Ball: HTop"
-    [CO]="✨ CO - Magic Powder: git checkout"
-    [a+]="⚡️ a+ - Light Arrows: Bookmark Direct Travel to any location at the speed of light"
-    [a!]="🔥 a! - Fire Arrows: Burn through all your downloads - one at a time. Uses rm -i."
-    [lt]="🎺 lt - Magic Trumpet: Use LocalTunnel to open a pubically accessible portal to any local port."
+    [t]="🔮 t  - Crystal Ball: Shortcut to HTop or Top"
 )
 
 # Help 
@@ -146,12 +175,17 @@ alias \?a="echo '${HERO_HELP[a]}'"
 alias \?x="echo '${HERO_HELP[x]}'"
 alias \?f="echo '${HERO_HELP[f]}'"
 alias \?h="echo '${HERO_HELP[h]}'"
-alias \?n="echo '${HERO_HELP[n]}'"
+alias \?m="echo '${HERO_HELP[m]}'"
 alias \?A="echo '${HERO_HELP[A]}'"
 alias \?B="echo '${HERO_HELP[B]}'"
 alias \?C="echo '${HERO_HELP[C]}'"
 alias \?D="echo '${HERO_HELP[D]}'"
-alias \?I="echo '${HERO_HELP[I]}'"
+alias \?g="echo '${HERO_HELP[g]}'"
+alias \?g-="echo '${HERO_HELP[g-]}'"
+alias \?g\?="echo '${HERO_HELP[g?]}'"
+alias \?g+="echo '${HERO_HELP[g+]}'"
+alias \?g!="echo '${HERO_HELP[g!]}'"
+alias \?g.="echo '${HERO_HELP[g.]}'"
 alias \?M="echo '${HERO_HELP[M]}'"
 alias \?P="echo '${HERO_HELP[P]}'"
 alias \?p="echo '${HERO_HELP[p]}'"
@@ -176,13 +210,13 @@ alias \?="echo '
 │ ${HERO_HELP[a!]}
 │ ${HERO_HELP[f]}
 │ ${HERO_HELP[h]}
-│ ${HERO_HELP[n]}
+│ ${HERO_HELP[m]}
 ├ 🧰 GIT TOOLS aka GITCUTS ────────────────────────────────────────────────────────────────
 │ ${HERO_HELP[A]}
 │ ${HERO_HELP[B]}
 │ ${HERO_HELP[C]}
 │ ${HERO_HELP[D]}
-│ ${HERO_HELP[I]}
+│ ${HERO_HELP[g]}
 │ ${HERO_HELP[M]}
 │ ${HERO_HELP[P]}
 │ ${HERO_HELP[p]}
@@ -193,14 +227,13 @@ alias \?="echo '
 │ ${HERO_HELP[v]}
 │ ${HERO_HELP[t]}
 ├ EQUIPED ──────────────────────────────────────────────────────────────────────────────────
-│ 💍 Pendant: Shows if hero-of-legend bin scripts are in use
-│ 🛡️  Sheild: Shows if hero-of-legend aliases are in use
+│ 💍 Pendant: Shows if hero-of-legend aliases file is installed 
+│ 🛡️ Sheild: Shows if all hero-of-legend bin scripts have been downloaded 
 │ 👕 Tunic: This Theme
+│ 🧰 z+ Magic Chest: Opens magic chest that helps download more hero-of-legend items
 └─────────────────────────────────────────────────────────────────────────────────────────
 👕 $USER used the Pegasus Boots 🥾. Now they can run commands super quick!
 '|less"
-
-alias trash-size="du --human-readable --summarize -csh --block-size=1G ~/.local/share/Trash"
 
 # alias hud="echo ' 
 # ┌💍 HUD ────────────────────┐  ┌Crystals──┐
