@@ -1,4 +1,7 @@
 #!/bin/bash
+
+source "_hero-helpers"
+
 TRASH="/home/$USER/.local/share/Trash/"
 RED="\e[31m"
 GREEN="\e[32m"
@@ -68,7 +71,8 @@ bombIsADud(){
 
 bomb(){
   showSplash
-  echo "👕 $USER looks in their bomb bag 👜..."; 
+  echo "👕 $USER opens their bomb bag 👜..."; 
+
   case $1 in
     "l")
       echo 👕 $USER inspects the trash...; 
@@ -76,8 +80,8 @@ bomb(){
       ;;
 
     "file")
-      echo "👕 $USER bombed $FILE to the trash..."; 
-      moveToTrash "$2"
+      echo -e "👕 $USER grabs a bomb and tosses it @ ${cyan}$2${reset}"; 
+      ask "💣 ${yellow}Move ${cyan}$2${yellow} to trash" moveToTrash "$2"
       ;;
 
     "--help")
