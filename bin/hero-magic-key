@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "_hero-helpers"
+
 local FLOORS=(
   ../
   ../..
@@ -13,9 +15,9 @@ local FLOORS=(
 )
 
 ASCII=(
-  "  8 8          ,o.  "
-  " d8o8azzzzzzzzd   b "
-  "               \`o'  "
+  "${orange}  8 8          ,o.  "$NC
+  "${yellow} d8o8azzzzzzzzd   b "$NC
+  "${yellow}               \`o'  "$NC
   "                    " 
 )
 
