@@ -1,41 +1,60 @@
 # ** Nerd fonts used in comment below
 #  理[ A| B|ﯜ C| CO|繁 D| f| h| M| P| p|ﭾ S| CL| x]  
 
-alias trash-size="du --human-readable --summarize -csh --block-size=1G ~/.local/share/Trash"
+# Heads Up Display
+: '
+ ┌─┐
+ ├─┤
+ └─┘
+'
 
-# Clear terminal
-alias CL='clear'
-# Close terminal
-alias x='exit'
+# Classic 
+# alias hud="echo ' 
+# ┌💍 HUD ──a─────────────────┐  ┌Crystals──┐
+# │ 🏹 a 🪃 P 🎣 p 💣 b  🍄 S │  │   💎 💎  │  
+# │ 🔥a! ⚡ a+ 🌀 g ✨ CO 💥 x │  │ 💎 💎 💎 │
+# │ 🔦 f 🔨 A 🎺 lt🖍 n 📗 h  │  │   💎 💎  │
+# │️ 🫙 M 🌱 B 📜 C 🪞 D       │
+# ├ EQUIPMENT  ───────────────┤  ┌EQUIPPED──┐
+# │ 🥾 ?  🥊 e   🤿 v  🔮 t   │  │ 💍 🛡️ 👕 │   
+# └───────────────────────────┘  └──────────┘
+# '"
 
-#### Add git shortcuts - listed in hero-of-legend zsh-theme terminal 
-alias A='git add '
-alias B='git checkout -b'
-alias C='git commit -m '
-alias CO='git checkout '
-alias D='git diff '
-alias M='git merge '
-alias P='git push'
-alias p='git pull'
-alias S='git status '
-# GIT FLOW
-alias g="git flow "
-alias g.="g release "
-alias g+="g feature "
-alias g!="g hotfix "
-alias g\?="g bugfix"
-alias g+s="g+ start"
-alias g+p="g+ publish"
-alias g+f="g+ finish"
-alias g!s="g! start"
-alias g!p="g! publish"
-alias g!f="g! finish"
-alias g\?s="g? start"
-alias g\?p="g? publish"
-alias g\?f="g? finish"
-alias g.s="g. start"
-alias g.p="g. publish"
-alias g.f="g. finish"
+# Modern
+alias hud="echo ' 
+┌ 💍 HUD ───────────────────┐  ┌ CRYSTALS ┐
+│ 🏹 a 💣 b 🔑 k 🗡 z 💥 x  │  │  💎 💎   │  
+├ 🎒 ITEMS  ────────────────┤  │ 💎 💎 💎 │
+│ 🔥 a! 🔦 f 🎺 lt          │  │   💎 💎  │     
+│ ⚡ a+ 📗 h 🖍 m           │  └──────────┘
+├ 🧰 GIT TOOLS ─────────────┤  ┌ EQUIPPED ┐
+│ 🌀 g 🪃 P 🎣 p ✨ CO 🍄 S │  │ 💍 🛡️ 👕 │ 
+│ 🔨 A 🌱 B 📜 C 🪞 D  🫙 M │  ├ DUNGEON ─┤
+├ 🤺 DO ────────────────────┤  │ 🗺️ 🧭 🔑 │
+│ 🥾 ?  🥊 G  🤿 v  🔮 t    │  └──────────┘  
+└───────────────────────────┘ 
+'"
+alias i="((HERO_HIDE_ITEMS=!HERO_HIDE_ITEMS)); CL"
+
+alias z="CL; hud"
+alias z+='bash -c "$(curl -fsSL https://raw.githubusercontent.com/Knerd/hero-bin/develop/hero-magic-chest)"'
+
+# ITEMS
+alias arw="~/Downloads; ls -l; echo '🏹 ---> Nice shot! Straight to Downloads. 🎯'"
+alias a=arw
+alias a!="hero-fire-arrows"
+alias a+="hero-light-arrow"
+
+alias bomb="hero-magic-bomb"
+alias b=bomb
+alias b\?="bomb --help"
+alias b!="bomb !"
+alias b-="bomb l"
+alias b+="bomb file"
+
+alias G="rm -i vendor; rm -i node_modules; yarn"
+alias m="source hero-magic-marker"
+alias m-="source hero-magic-marker -d"
 
 # Find things
 # Find a file recursively
@@ -57,78 +76,40 @@ alias k7="k 7"
 alias k8="k 8"
 alias k9="k 9"
 
-# Heads Up Display
-: '
- ┌─┐
- ├─┤
- └─┘
-'
+# Clear terminal
+alias CL='clear'
+# Close terminal
+alias x='exit'
 
-alias i="((HERO_HIDE_ITEMS=!HERO_HIDE_ITEMS)); CL"
+#### Add git shortcuts - listed in hero-of-legend zsh-theme terminal 
+alias A='git add '
+alias B='git checkout -b'
+alias C='git commit -m '
+alias CO='git checkout '
+alias D='git diff '
+alias M='git merge '
+alias P='git push'
+alias p='git pull'
+alias S='git status '
 
-alias hud="echo ' 
-┌💍 HUD ────────────────────┐  ┌Crystals──┐
-│ 🗡 z 🗝 k 🏹 a ⚡a+ 🔥a!  │  │   💎 💎  │  
-├───────────────────────────┤  │ 💎 💎 💎 │
-│ 🎒 ITEMS  💣 b  💥 x      │  │   💎 💎  │     
-│ 🔦 f 📗 h 💣 b? 🎺 lt 🖍 n │  └──────────┘
-├───────────────────────────┤  ┌z┐ ┌ k ┐
-│ 🧰 GIT TOOLS              │ ️ 🗡   🔑 
-├───────────────────────────┤  └─┘ └───┘
-│ 🔨 A 🌱 B 📜 C ✨ CO 🪞 D │
-│ 🌀 I 🍯 M 🪃 P 🎣 p  🍄 S │ 
-├───────────────────────────┤  
-│ EQUIPMENT                 │  ┌EQUIPPED──┐    
-│ 🥾 ?  🥊 e   🤿 v  🔮 t   │  │ 💍 🛡️  👕 │   
-└───────────────────────────┘  └──────────┘
-'"
-
-# Classic 
-# alias hud="echo ' 
-# ┌💍 HUD ──a─────────────────┐  ┌Crystals──┐
-# │ 🏹 a 🪃 P 🎣 p 💣 b  🍄 S │  │   💎 💎  │  
-# │ 🔥a! ⚡ a+ 🌀 g ✨ CO 💥 x │  │ 💎 💎 💎 │
-# │ 🔦 f 🔨 A 🎺 lt🖍 n 📗 h  │  │   💎 💎  │
-# │️ 🍯 M 🌱 B 📜 C 🪞 D       │
-# ├ EQUIPMENT  ───────────────┤  ┌EQUIPPED──┐
-# │ 🥾 ?  🥊 e   🤿 v  🔮 t   │  │ 💍 🛡️ 👕 │   
-# └───────────────────────────┘  └──────────┘
-# '"
-
-# Modern
-alias hud="echo ' 
-┌ 💍 HUD ───────────────────┐  ┌Crystals──┐
-│ 🏹 a 💣 b 🔑 k 🗡 z 💥 x  │  │  💎 💎   │  
-├ 🎒 ITEMS  ────────────────┤  │ 💎 💎 💎 │
-│ ⚡ a+ 🔥 a!               │  │   💎 💎  │     
-│ 🔦 f  🎺 lt 🖍 m 📗 h     │  └──────────┘
-├ 🧰 GIT TOOLS ─────────────┤  ┌EQUIPPED──┐
-│ 🌀 g 🪃 P 🎣 p ✨ CO 🍄 S │  │ 💍 🛡️ 👕 │ 
-│ 🔨 A 🌱 B 📜 C 🪞 D 🫙 M  │  │ 🗺️ 🧭 🔑 │
-├ 🤺 DO ────────────────────┤  └──────────┘
-│ 🥾 ?  🥊 G  🤿 v  🔮 t    │     
-└───────────────────────────┘ 
-'"
-
-alias z="CL; hud"
-alias z+='bash -c "$(curl -fsSL https://raw.githubusercontent.com/Knerd/hero-bin/develop/hero-magic-chest)"'
-
-# ITEMS
-alias arw="~/Downloads; ls -l; echo '🏹 ---> Nice shot! Straight to Downloads. 🎯'"
-alias a=arw
-alias a!="hero-fire-arrows"
-alias a+="hero-light-arrow"
-
-alias bomb="hero-magic-bomb"
-alias b=bomb
-alias b\?="bomb --help"
-alias b!="bomb !"
-alias b-="bomb l"
-alias b+="bomb file"
-
-alias G="rm -i vendor; rm -i node_modules; yarn"
-alias m="source hero-magic-marker"
-alias m-="source hero-magic-marker -d"
+# GIT FLOW
+alias g="git flow "
+alias g.="g release "
+alias g+="g feature "
+alias g!="g hotfix "
+alias g\?="g bugfix"
+alias g+s="g+ start"
+alias g+p="g+ publish"
+alias g+f="g+ finish"
+alias g!s="g! start"
+alias g!p="g! publish"
+alias g!f="g! finish"
+alias g\?s="g? start"
+alias g\?p="g? publish"
+alias g\?f="g? finish"
+alias g.s="g. start"
+alias g.p="g. publish"
+alias g.f="g. finish"
 
 declare -A HERO_HELP=(
     [z]="🗡️  z  - Sword: Wipes the screen, shows your inventory, and awaits your next command."
@@ -218,3 +199,22 @@ alias \?="echo '
 └─────────────────────────────────────────────────────────────────────────────────────────
 👕 $USER used the Pegasus Boots 🥾. Now they can run commands super quick!
 '|less"
+
+alias trash-size="du --human-readable --summarize -csh --block-size=1G ~/.local/share/Trash"
+
+# alias hud="echo ' 
+# ┌💍 HUD ────────────────────┐  ┌Crystals──┐
+# │ 🗡 z 🗝 k 🏹 a ⚡a+ 🔥a!  │  │   💎 💎  │  
+# ├───────────────────────────┤  │ 💎 💎 💎 │
+# │ 🎒 ITEMS  💣 b  💥 x      │  │   💎 💎  │     
+# │ 🔦 f 📗 h 💣 b? 🎺 lt 🖍 n │  └──────────┘
+# ├───────────────────────────┤  ┌z┐ ┌ k ┐
+# │ 🧰 GIT TOOLS              │ ️ 🗡   🔑 
+# ├───────────────────────────┤  └─┘ └───┘
+# │ 🔨 A 🌱 B 📜 C ✨ CO 🪞 D │
+# │ 🌀 I 🍯 M 🪃 P 🎣 p  🍄 S │ 
+# ├───────────────────────────┤  
+# │ EQUIPMENT                 │  ┌EQUIPPED──┐    
+# │ 🥾 ?  🥊 e   🤿 v  🔮 t   │  │ 💍 🛡️  👕 │   
+# └───────────────────────────┘  └──────────┘
+# '"

@@ -12,19 +12,6 @@
   CONSTANTS
 //////////////////////////////////////////////////////////////////////////'
 
-  # INTRODUCE AREA 
-  declare -A AREA=(
-    [branch]=🚧     
-    [cart]=🛒       
-    [castle]=🏰  
-    [controller]=🎮 
-    [door]=🚪 
-    [dungeon]=️💀
-    [moon]=🌙 
-    [shop]=🏪
-    [sun]=🌞 
-  )
-
   # INTRODUCE CHARACTERS
   declare -A NPC=(
     [dragon]=🐲
@@ -38,12 +25,41 @@
     [wizard]=🧙
   )
 
+  declare QUOTES=(
+    "${NPC[wizard]}️ Its dangerous to go alone. Take this!"
+    "${NPC[king]}️ Well excuse me, princess!"
+    "${NPC[fairy]} Hey, listen!"
+    "${NPC[elf]} Zshhhhh, Its a secret to everybody."
+    # "👺 Grumble, Grumble"
+    # "${NPC[man]}️  I am Error"
+    # "${NPC[dragon]}️ Dodongo Dislikes Smoke"
+    # "${NPC[fairy]} Hey, Wake up $USER!"
+  )
+
+  # INTRODUCE AREA 
+  declare -A AREA=(
+    [branch]=🚧     
+    [cart]=🛒       
+    [castle]=🏰  
+    [controller]=🎮 
+    [door]=🚪 
+    [dungeon]=️💀
+    [moon]=🌙 
+    [shop]=🏪
+    [sun]=🌞 
+  )
+
   # INTRODUCE HERO - LEGEND OF ICONS
   declare -A HERO=(
-    [tunic]=👕
     [compass]=🧭    # Compass
-    [map]=🗺        # Compass
     [key]=️️🔑        # Magic Key
+    [map]=🗺        # Compass
+    [sword]=️🗡️      # Magic Sword
+    [swords]=⚜️      # 
+    [toolbox]=🧰    # Toolbox
+    [trash]=🗑       # Trash
+    [tunic]=👕
+    [watch]=⌚      # Watch
 
     [bean]=🌱       # Magic Bean 
     [bomb]=💣       # Magic Bomb 
@@ -52,7 +68,7 @@
     [boots]=🥾      # Magic Boots
     [bottle]=🏺     # Magic Bottle
     [bow]=🏹        # Magic Bow
-    [exit]=💥 
+    [exit]=💥       # Magic Exit
     [flashlight]=🔦 # Magic Lantern
     [hammer]=🔨     # Magic Hammer
     [mirror]=🔍     # Magic Mirror
@@ -60,11 +76,6 @@
     [poll]=🎣       # Magic Fishing Poll
     [powder]=✨     # Magic Powder 
     [scroll]=📜     # Magic Scroll
-    [sword]=️🗡️      # Magic Sword
-    [swords]=⚜️      # 
-    [toolbox]=🧰    # Toolbox
-    [trash]=🗑       # Trash
-    [watch]=⌚      # Watch
   )
 
   # MAGIC BUTTONS -  Match keys to HERO items
@@ -87,37 +98,11 @@
     [sword]="z"
   )
 
-  declare QUOTES=(
-    "👺 Grumble, Grumble"
-    "${NPC[elf]} Zshhhhh, Its a secret to everybody."
-    "${NPC[fairy]} Hey, listen!"
-    "${NPC[king]}️ Well excuse me, princess!"
-    "${NPC[wizard]}️ Its dangerous to go alone. Take this!"
-    # "${NPC[man]}️  I am Error"
-    # "${NPC[dragon]}️ Dodongo Dislikes Smoke"
-    # "${NPC[fairy]} Hey, Wake up $USER!"
-  )
-
   declare -A MAGIC
   for index in "${(k)BUTTONS[@]}"; do
     MAGIC[$index]="${HERO[$index]}${BUTTONS[$index]}"
   done
 
-  # THE TRIFORCE
-  TRIFORCE=(
-    " %{$fg_bold[yellow]%} ▲ " 
-    " %{$fg_bold[yellow]%}▲ ▲"
-  )
-
-  TRIFORCE_LOWRULE=(
-    " $fg_bold[yellow]⯆ ▼" 
-    " $fg_bold[yellow] ⯆ "
-  )
-
-  TRIFORCES=(
-    HYRULE
-    LOWRULE
-  )
 
   # HUDS
   declare -A LIFE=(
@@ -178,7 +163,7 @@ TRAPALRM() {
   zle reset-prompt
 }
 
-doubleDigits(){
+maxOutAt99(){
   NUM=$1
   if [ $NUM -gt 99 ] ; then
     NUM=99 
@@ -188,7 +173,7 @@ doubleDigits(){
 
 countItems(){
   # ARROWS 
-  DOWNLOAD_DIRS=$( ls -l ~/Downloads/ | wc -l )
+  DOWNLOADS=$( ls -p ~/Downloads/ | grep -v / | wc -l )
 
   # BOMBS
   TRASH_SIZE=(${$(trash-size)//G/ })
@@ -202,13 +187,13 @@ countItems(){
   fi
 
   # ITEMS
-  doubleDigits $DOWNLOAD_DIRS
+  maxOutAt99 $DOWNLOADS
   ARROWS=$(printf '%02d' $?)
 
-  doubleDigits $TRASH_SIZE
+  maxOutAt99 $TRASH_SIZE
   BOMBS=$(printf '%02d' $?)
 
-  doubleDigits $KEYS
+  maxOutAt99 $KEYS
   KEYS=$(printf '%02d' $?)
 
   zHUD=(
@@ -221,7 +206,20 @@ countItems(){
 
 # TODO: Refactor this...
 displayHUD(){
+  # THE TRIFORCE
+  TRIFORCE_HYRULE=(
+    " %{$fg_bold[yellow]%} ▲ " 
+    " %{$fg_bold[yellow]%}▲ ▲"
+  )
+
+  TRIFORCE_LOWRULE=(
+    " $fg_bold[yellow]⯆ ▼" 
+    " $fg_bold[yellow] ⯆ "
+  )
+
   ITEM_HUD=""
+
+  # GIT PROMPT
   if [ "$(git_prompt_info)" ]; then
     if [ "$HERO_HIDE_ITEMS" = "1" ]; then
       ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
@@ -230,6 +228,7 @@ displayHUD(){
       ZSH_THEME_GIT_PROMPT_SUFFIX="\n%{$HUD[@]%} %{$GIT_HUD[@]%}"
     fi
     ITEM_HUD="$(git_prompt_info)" 
+    TRIFORCE=($TRIFORCE_LOWRULE)
   else
     if [ "$HERO_HIDE_ITEMS" = "1" ]; then
       ITEM_HUD=""
@@ -237,6 +236,7 @@ displayHUD(){
     else
       ITEM_HUD=$(echo -e "\n%{$reset_color%}%{$HUD[@]%}")
     fi
+    TRIFORCE=($TRIFORCE_HYRULE)
   fi
 }
 
@@ -252,7 +252,7 @@ setupLegendaryPrompt(){
     HEY_LISTEN=""
     HOL_NPC=""
   else
-    NAVI=${QUOTES[ $RANDOM % ${#QUOTES[@]} ]}
+    NAVI=${QUOTES[ $RANDOM % ${#QUOTES[@]} ]:0}
   fi
   FLOOR="${AREA[door]} %{$reset_color%}%{$fg_bold[green]%}%c"
   CASTLE="${AREA[castle]} %{$reset_color%}%{$fg[cyan]%}%d"
