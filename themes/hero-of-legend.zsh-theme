@@ -1,8 +1,11 @@
+source <(curl -fsSL https://raw.githubusercontent.com/Knerd/.oh-my-zsh-custom/master/bin/_hero-helpers)
 : '////////////////////////////////////////////////////////////////////////
   SETTINGS
 //////////////////////////////////////////////////////////////////////////'
   HERO_HIDE_ITEMS=0
-  HERO_MINMAL=0
+  HERO_HIDE_CLOCK=0
+  HERO_HIDE_NAVI=0
+  HERO_HIDE_EVERYTHING=0
   
   # Hero of Legend bin scripts
   HERO_BIN="$HOME/.oh-my-zsh/custom/bin"
@@ -124,7 +127,6 @@
 
   # GIT 
   GIT_HUD=(
-    $AREA[dungeon]
     $MAGIC[hammer]
     $MAGIC[bean]
     $MAGIC[scroll]
@@ -137,27 +139,13 @@
     $MAGIC[mushroom]
   )
 
-  ZSH_THEME_GIT_PROMPT_PREFIX="\n%{$fg_bold[cyan]%}-LVL- ${AREA[branch]}%{$fg_bold[white]%} "
+  ZSH_THEME_GIT_PROMPT_PREFIX="\n%{$fg_bold[white]%}-LVL- ${AREA[dungeon]}%{$fg_bold[white]%} "
   ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
   ZSH_THEME_GIT_PROMPT_CLEAN=$LIFE[clean]
   ZSH_THEME_GIT_PROMPT_DIRTY=$LIFE[dirty]
 
   # CLOCK COUNTER
   TMOUT=1
-
-  # CLOCK
-  CLOCK=(
-    "%{$fg[yellow]%}"
-    # "-TIME-"
-    "${AREA[sun]}%D{%b}/%{$fg[cyan]%}%D{%d}"
-    "${AREA[moon]}%D{%a}%{$reset_color%}"
-    "${HERO[watch]}%D{%I:%M:%S%P}"
-  )
-
-  INFO=(
-    "${AREA[controller]} %{$fg[white]%}%m"
-    "$CLOCK[@]"
-  )
 
 : '////////////////////////////////////////////////////////////////////////
                           METHODS/FUNCTIONS 
@@ -203,12 +191,28 @@ countItems(){
     "ˣ$ARROWS"
     "ˣ$BOMBS"
     "ˣ$KEYS"
-    ""
+  )
+
+  # CLOCK
+  # "-TIME-"
+  CLOCK=(
+    "%{$fg[yellow]%}%D{%b}${AREA[sun]}%{$fg[cyan]%}%D{%d}"
+    "${AREA[moon]}%D{%a}%{$reset_color%}"
+    "${HERO[watch]}%D{%I:%M:%S%P}"
   )
 }
 
 # TODO: Refactor this...
 displayHUD(){
+  if [ $HERO_HIDE_CLOCK = 1 ]; then
+    CLOCK=""
+  fi
+
+  INFO=(
+    "${AREA[controller]}%{$fg[white]%}%m"
+    "$CLOCK[@]"
+  )
+
   # THE TRIFORCE
   TRIFORCE_HYRULE=(
     " %{$fg_bold[yellow]%} ▲ " 
@@ -228,7 +232,7 @@ displayHUD(){
       ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
       zHUD=()
     else
-      ZSH_THEME_GIT_PROMPT_SUFFIX="\n%{$HUD[@]%} %{$GIT_HUD[@]%}"
+      ZSH_THEME_GIT_PROMPT_SUFFIX="\n%{$light_gray%}%{$HUD[@]%} %{$GIT_HUD[@]%}"
     fi
     ITEM_HUD="$(git_prompt_info)" 
     TRIFORCE=($TRIFORCE_LOWRULE)
@@ -237,7 +241,7 @@ displayHUD(){
       ITEM_HUD=""
       zHUD=()
     else
-      ITEM_HUD=$(echo -e "\n%{$reset_color%}%{$HUD[@]%}")
+      ITEM_HUD=$(echo -e "\n%{$light_gray%}%{$HUD[@]%}")
     fi
     TRIFORCE=($TRIFORCE_HYRULE)
   fi
@@ -257,6 +261,9 @@ setupLegendaryPrompt(){
   else
     NAVI=${QUOTES[ $RANDOM % ${#QUOTES[@]} ]:0}
   fi
+  if [ $HERO_HIDE_NAVI = 1 ]; then
+    NAVI=""
+  fi
   FLOOR="${AREA[door]} %{$reset_color%}%{$fg_bold[green]%}%c"
   CASTLE="${AREA[castle]} %{$reset_color%}%{$fg[cyan]%}%d"
   Z="%{$fg_bold[green]%}Ƶ %{$reset_color%}"
@@ -267,11 +274,18 @@ precmd () {
   displayHUD
   setupLegendaryPrompt
 
-  PROMPT="${INFO[@]} 
+  if [ $HERO_HIDE_EVERYTHING = 1 ];  then
+    PROMPT="$CASTLE $ITEM_HUD 
+%{$fg_bold[white]%}🔑ˣ$KEYS $Z"
+    RPROMPT=""
+  else
+    PROMPT="${INFO[@]} 
 $TRIFORCE[1] $FLOOR
 $TRIFORCE[2] $CASTLE $ITEM_HUD 
-${zHUD[@]}$Z"
-  RPROMPT="$NAVI"
+%{$fg_bold[white]%}${zHUD[@]} $Z"
+    RPROMPT="$NAVI"
+  fi
+
   # END: precmd
 }
 
@@ -289,6 +303,7 @@ showSplash(){
         \/              Oh-my & The Hero-of-Legend 👕
 
                     PRESS START (z+) 
+                      options (o) 
 SPLASH
 }
 

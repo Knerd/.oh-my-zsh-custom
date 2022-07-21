@@ -34,11 +34,28 @@ alias hud="echo '
 │ 🥾 ?  🥊 G  🤿 v  🔮 t    │  │ 🗺️ 🧭 🔑 │ 
 └───────────────────────────┘  └──────────┘ 
 '"
+
+alias o="CL; echo '
+╔═╗┌─┐┌┬┐┬┌─┐┌┐┌┌─┐
+║ ║├─┘ │ ││ ││││└─┐
+╚═╝┴   ┴ ┴└─┘┘└┘└─┘
+┌ ⚙ Options ─────────────────┐
+│ c | Toggle Clock           │
+│ i | Toggle Item HUD        │
+│ i-| Toggle Minish Mode     │
+│ n | Toggle Navi Messages   │
+└────────────────────────────┘
+'"
+
+
 # Clear terminal
 alias CL='clear'
 
 # Toggle HUD items
-alias i="((HERO_HIDE_ITEMS=!HERO_HIDE_ITEMS)); CL"
+alias i="((HERO_HIDE_ITEMS=!HERO_HIDE_ITEMS)); CL;"
+alias c="((HERO_HIDE_CLOCK=!HERO_HIDE_CLOCK)); CL;"
+alias n="((HERO_HIDE_NAVI=!HERO_HIDE_NAVI)); CL;"
+alias i-="((HERO_HIDE_EVERYTHING=!HERO_HIDE_EVERYTHING));((HERO_HIDE_ITEMS=HERO_HIDE_EVERYTHING)); CL;"
 
 # Clear terminal show hud
 alias z="CL; hud"
@@ -46,10 +63,9 @@ alias z="CL; hud"
 # Close terminal
 alias x='exit'
 
+# Magic Arrows
 alias arw="~/Downloads; ls -l; echo '🏹 ---> Nice shot! Straight to Downloads. 🎯'"
 alias a=arw
-
-# Magic Arrows
 alias a!="hero-fire-arrows"
 alias a+="hero-light-arrow"
 
@@ -131,9 +147,9 @@ launchTop(){ if [ -x "$(command -v htop)" ]; then htop; else top; fi }
 declare -A HERO_HELP=(
     # HUD
     [a]="🏹 a  - Arrows: # of files in ~/Downloads; a/arw is a direct shot to ~/Downloads"
-    [b]="💣 b  - Bombs: # of Gigs in Trash; b/bomb blows up the trash bin, b+ [FILE] moves file to trash, b- lists trash"
-    [k]="🗝️ k  - Keys: # of child directorys; k[1-9] Uses # of keys to cd .. that many times."
-    [z]="🗡️ z  - Sword: Wipes the screen, shows your inventory, and awaits your next command."
+    [b]="💣 b  - Magic Bombs: # of Gigs in Trash; b/bomb blows up the trash bin, b+ [FILE] moves file to trash, b- lists trash"
+    [k]="🗝️ k  - Magic Keys: # of child directorys; k[2-9] # of keys cd .. that many times."
+    [z]="🗡️ z  - Magic Sword: Wipes the screen, shows your inventory, and awaits your next command."
     [x]="💥 x  - Quake: Close the terminal"
 
     # ITEMS 
