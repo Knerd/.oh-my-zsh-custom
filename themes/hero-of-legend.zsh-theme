@@ -1,4 +1,4 @@
-source <(curl -fsSL https://raw.githubusercontent.com/Knerd/.oh-my-zsh-custom/master/bin/_hero-helpers)
+  source $ZSH_CUSTOM/bin/_hero-helpers
 : '////////////////////////////////////////////////////////////////////////
   SETTINGS
 //////////////////////////////////////////////////////////////////////////'
@@ -24,7 +24,7 @@ source <(curl -fsSL https://raw.githubusercontent.com/Knerd/.oh-my-zsh-custom/ma
     [dragon]=🐲
     [elf]=🧝
     [fairy]=🧚️
-    [genie]=🧞‍♂️
+    [genie]=🧞
     [hero]=🦸
     [king]=🤴
     [queen]=👸
@@ -64,7 +64,7 @@ source <(curl -fsSL https://raw.githubusercontent.com/Knerd/.oh-my-zsh-custom/ma
     [sword]=️🗡️      # Magic Sword
     [swords]=⚜️      # 
     [toolbox]=🧰    # Toolbox
-    [trash]=🗑       # Trash
+    [trash]=🗑      # Trash
     [tunic]=👕
     [watch]=⌚      # Watch
 
@@ -73,7 +73,7 @@ source <(curl -fsSL https://raw.githubusercontent.com/Knerd/.oh-my-zsh-custom/ma
     [book]=📗       # Magic Book
     [boomerang]=🪃  # Magic Boomerang
     [boots]=🥾      # Magic Boots
-    [bottle]=🏺     # Magic Bottle
+    [bottle]=🫙     # Magic Bottle
     [bow]=🏹        # Magic Bow
     [exit]=💥       # Magic Exit
     [flashlight]=🔦 # Magic Lantern
@@ -87,22 +87,22 @@ source <(curl -fsSL https://raw.githubusercontent.com/Knerd/.oh-my-zsh-custom/ma
 
   # MAGIC BUTTONS -  Match keys to HERO items
   declare -A BUTTONS=(
-    [bean]="B"
-    [bomb]="b"
+    [bean]=" B"
+    [bomb]=" b"
     [boomerang]=" P"
-    [boots]="?"
-    [bottle]="M"
-    [bow]="a"
-    [exit]="x"
-    [hammer]="A"
-    [key]="k"
+    [boots]=" ?"
+    [bottle]=" M"
+    [bow]=" a"
+    [exit]=" x"
+    [hammer]=" A"
+    [key]=" k"
     [lantern]="f"
-    [mirror]="D"
-    [mushroom]="S"
-    [poll]="p"
-    [powder]="CO"
-    [scroll]="C"
-    [sword]="z"
+    [mirror]=" D"
+    [mushroom]=" S"
+    [poll]=" p"
+    [powder]=" CO"
+    [scroll]=" C"
+    [sword]=" z"
   )
 
   declare -A MAGIC
@@ -220,8 +220,8 @@ displayHUD(){
   )
 
   TRIFORCE_LOWRULE=(
-    " $fg_bold[yellow]⯆ ▼" 
-    " $fg_bold[yellow] ⯆ "
+    " %{$fg_bold[yellow]%}⯆ ⯆" 
+    " %{$fg_bold[yellow]%} ⯆ "
   )
 
   ITEM_HUD=""
@@ -266,7 +266,7 @@ setupLegendaryPrompt(){
   fi
   FLOOR="${AREA[door]} %{$reset_color%}%{$fg_bold[green]%}%c"
   CASTLE="${AREA[castle]} %{$reset_color%}%{$fg[cyan]%}%d"
-  Z="%{$fg_bold[green]%}Ƶ %{$reset_color%}"
+  Z="%{$fg_bold[green]%}Ƶ %{$reset_color%}%{$fg[white]%}"
 }
 
 precmd () {
