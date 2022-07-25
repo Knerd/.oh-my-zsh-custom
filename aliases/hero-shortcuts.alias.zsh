@@ -35,7 +35,7 @@ alias hud="echo '
 └───────────────────────────┘  └──────────┘ 
 '"
 
-alias o="CL; echo '
+alias o="heroSplash; echo '
 ╔═╗┌─┐┌┬┐┬┌─┐┌┐┌┌─┐
 ║ ║├─┘ │ ││ ││││└─┐
 ╚═╝┴   ┴ ┴└─┘┘└┘└─┘
@@ -131,14 +131,14 @@ alias g!f="g! finish"
 alias g\?s="g? start"
 alias g\?p="g? publish"
 alias g\?f="g? finish"
-alias g.s="g. start"
-alias g.p="g. publish"
-alias g.f="g. finish"
+alias g\.s="g. start"
+alias g\.p="g. publish"
+alias g\.f="g. finish"
 
 # GEAR
 alias G="powerGloves"
 # Overwrite powerGloves with your own custom heavy lifting commands
-powerGloves(){ rm -i vendor; rm -i node_modules; yarn }
+powerGloves(){ b+ vendor; b+ node_modules; yarn }
 
 alias t='launchTop'
 launchTop(){ if [ -x "$(command -v htop)" ]; then htop; else top; fi } 
@@ -213,6 +213,7 @@ alias \?CO="echo '${HERO_HELP[t]}'"
 alias \?a+="echo '️${HERO_HELP[a+]}'"
 alias \?a!="echo '️${HERO_HELP[a!]}'"
 alias \?lt="echo '${HERO_HELP[lt]}'"
+alias lt="lt -h http://localtunnel.me"
 
 alias \?="echo '
 ┌ 💍 HUD ──────────────────────────────────────────────────────────────────────────────────
