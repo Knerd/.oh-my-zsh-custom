@@ -33,14 +33,28 @@
   )
 
   declare QUOTES=(
-    "${NPC[wizard]}️ Its dangerous to go alone. Take this!"
-    "${NPC[king]}️ Well excuse me, princess!"
-    "${NPC[fairy]} Hey, listen!"
-    "${NPC[elf]} Zshhhhh, Its a secret to everybody."
+    "${NPC[wizard]} \"Its dangerous to go alone. Take this!\""
+    "${NPC[king]} \"Well excuse me, princess!\"" 
+    "${NPC[fairy]} \"Hey, listen!\""
+    "${NPC[elf]} \"Zshhhhh, Its a secret to everybody.\""
     # "👺 Grumble, Grumble"
     # "${NPC[man]}️  I am Error"
     # "${NPC[dragon]}️ Dodongo Dislikes Smoke"
     # "${NPC[fairy]} Hey, Wake up $USER!"
+  )
+
+  declare -A NPC_HELP=(
+    # Local tunnel
+    [lt]="${NPC[elf]} \"Use this trumpet to open magic portals!\""
+    [l]="${NPC[fairy]} \"Hey, look!\""
+    # git 
+    [git]="${NPC[wizard]} \"Don't forget about your shortcuts!\""
+    [g]=${QUOTES[@]:3:1}
+    # cd
+    [cd..]="${NPC[elf]} \"Don't forget to use your magic key! (k[2-9])\""
+    [cd]="${NPC[queen]} \"Use the bow of light (a+) to create a.shortcuts.\""
+    # rm
+    [rm]="${NPC[fairy]} \"Use b+ instead of rm to safely and easily add files to trash\""
   )
 
   # INTRODUCE AREA 
@@ -248,31 +262,62 @@ displayHUD(){
 }
 
 # HERO OF LEGEND TERMINAL PROMPT
-setupLegendaryPrompt(){
+heyListenShout(){
+  NPC_HELP[.]=${QUOTES[@]:($RANDOM % ${#QUOTES[@]}):1}
   if [ $HEY_LISTEN ]; then
     if [ $HOL_NPC ]; then
+      # Changes NPC emoji if HOL_NPC is set also
       NAVI="${NPC[$HOL_NPC]} \"${HEY_LISTEN}\""
     else
+      # Change NPC emoji if HOL_NPC is set also
       NAVI="${NPC[fairy]} \"Hey, listen! ${HEY_LISTEN}\""
     fi
-
-    HEY_LISTEN=""
-    HOL_NPC=""
+    unset HEY_LISTEN
+    unset HOL_NPC
   else
-    NAVI=${QUOTES[ $RANDOM % ${#QUOTES[@]} ]:0}
+    # Last command
+    case $(fc -nl -1) in
+      "cd .."*) 
+        NAVI=${NPC_HELP[cd..]}
+      ;;
+      cd*) 
+        NAVI=${NPC_HELP[cd]}
+      ;;
+      lt*) 
+        NAVI=${NPC_HELP[lt]}
+      ;;
+      l*) 
+        NAVI=${NPC_HELP[l]}
+      ;;
+      git*) 
+        NAVI=${NPC_HELP[git]}
+      ;;
+      g*) 
+        NAVI=${NPC_HELP[g]}
+      ;;
+      rm*) 
+        NAVI=${NPC_HELP[rm]}
+      ;;
+      *) 
+        NAVI=${NPC_HELP[.]}
+      ;;
+    esac
   fi
-  if [ $HERO_HIDE_NAVI = 1 ]; then
-    NAVI=""
+  if  [ $HERO_HIDE_NAVI = 1 ]; then
+    RPROMPT=""
+  else
+    RPROMPT="$NAVI"
   fi
-  FLOOR="${AREA[door]} %{$reset_color%}%{$fg_bold[green]%}%c"
-  CASTLE="${AREA[castle]} %{$reset_color%}%{$fg[cyan]%}%d"
-  Z="%{$fg_bold[green]%}Ƶ %{$reset_color%}%{$fg[white]%}"
 }
 
 precmd () {
   countItems
   displayHUD
-  setupLegendaryPrompt
+  heyListenShout
+
+  FLOOR="${AREA[door]} %{$reset_color%}%{$fg_bold[green]%}%c"
+  CASTLE="${AREA[castle]} %{$reset_color%}%{$fg[cyan]%}%d"
+  Z="%{$fg_bold[green]%}Ƶ %{$reset_color%}%{$fg[white]%}"
 
   if [ $HERO_HIDE_EVERYTHING = 1 ];  then
     PROMPT="$CASTLE $ITEM_HUD 
@@ -283,14 +328,12 @@ precmd () {
 $TRIFORCE[1] $FLOOR
 $TRIFORCE[2] $CASTLE $ITEM_HUD 
 %{$fg_bold[white]%}${zHUD[@]} $Z"
-    RPROMPT="$NAVI"
   fi
 
   # END: precmd
 }
 
-showSplash(){
-<< SPLASH 
+alias heroSplash="CL; echo '
         ()   ╔╦╗╦ ╦╔═╗  ╦  ╔═╗╔═╗╔═╗╔╗╔╔╦╗  ╔═╗╔═╗
         )(    ║ ╠═╣║╣   ║  ║╣ ║ ╦║╣ ║║║ ║║  ║ ║╠╣ 
       o=️👁️=o  ╩ ╩ ╩╚═╝  ╩═╝╚═╝╚═╝╚═╝╝╚╝═╩╝  ╚═╝╚  
@@ -304,12 +347,12 @@ showSplash(){
 
                     PRESS START (z+) 
                       options (o) 
-SPLASH
-}
+
+'"
 
 heyListen(){
   echo "${NPC[fairy]} $HEY_LISTEN"
-  export HEY_LISTEN=""
+  unset HEY_LISTEN
 }
 
 : '////////////////////////////////////////////////////////////////////////
@@ -320,7 +363,7 @@ heyListen(){
 if [ $HEY_LISTEN ]; then
   heyListen
 else
-  showSplash
+  heroSplash
 fi
 
 # DEPRICATED
