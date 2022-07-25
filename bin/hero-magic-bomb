@@ -51,7 +51,7 @@ bombTrash(){
 
 moveToTrash(){
   FILE="$1"
-  if [ -f "$FILE" ]; then
+  if [ -f "$FILE" ] || [ -d "$FILE" ]; then
     mv "$FILE" "${TRASH}"
     echo "💥 BOOM!"
   else
